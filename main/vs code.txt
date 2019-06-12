@@ -1,0 +1,6 @@
+easy less - автокомпилятор
+css peek - правой кнопкой мыши отслеживает классы css
+color info - показывает цвета 
+Path autocomplite - автоподстановка пути
+auto rename tag - закрывает теги
+autosave on window change - автосохранение когда экран меняю
