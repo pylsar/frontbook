@@ -1,0 +1,39 @@
+sitechco - для чек листов
+Confluence  - для визуализации действий
+Testlink - создание тест кейсов
+TestRail - создание тест кейсов
+JIRA - багтрекинг
+mantis - багтрекинг
+redmine - багтрекинг
+bugzilla - багтрекинг
+Xmind - рисовать схемы майнкарты офлайн
+FreeMind - рисовать схемы майнкарты офлайн
+MindMeister - рисовать схемы майнкарты онлайн
+MindMup 2 - рисовать схемы майнкарты онлайн
+perclip - инструмент для генерации строки любой длины
+FastStone Capture - скриншоты
+Allpairs - парное тестирование
+PICT - парное тестирование
+jmeter - нагрузка сайта
+yEd Graph Editor - схемы графики
+SILENIUM для Mozzila Firefox - автоматизация тестов
+firebug для Mozilla Firefox - для удобства вёрстки
+web develover плагин  - для удобства вёрстки
+https://validator.w3.org - проверка кода на валидацию
+http://bugred.ru тут могжно названия для багов улучшать)
+http://whatbrowser.ru узнать полную инфу о своём браузере
+https://developers.google.com/speed/pagespeed/insights/?hl=ru - (page speed insights - показывает насколько оптимизирована страница)
+codepen - онлайн коды готовых решений
+vinbox - онлайн переводчик
+JS Hint - онлайн поиск ошибок в семантике
+trello - онлайн доска, диспетчер задач
+Katalon - чтото типо Selenium IDE(тоже записывает действия)
+https://htmlreference.io - html справочник
+https://cssreference.io - css справочник
+https://9elements.github.io/fancy-border-radius/ - для радиусов
+https://uigradients.com/#CrystalClear - градиенты
+https://www.transparenttextures.com - прозрачность
+http://animista.net - примеры анимации
+https://www.remove.bg - убрать фон для png
+tempmail - создаёт временную почту
+unsplash  - сервис для скачивания картинок

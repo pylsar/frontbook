@@ -1,0 +1,22 @@
+создаю style.less и style.css
+создаю например header.less и прописываю: //main: style.less(здесь путь) так же style.less подключаю файл: @import "header.less";
+миксины:
+	.btn(@bg){
+		background-color: @bg;
+		& when(lightness(@bg) > 50){
+			color: @black
+		}
+	}
+таким способом мы меняем цвет текста при условии
+
+
+создам переменную: @img: "../img/banners/";
+тогда в .less пишем: background: url("@{img}название файла.jpg");
+
+медиазапросы можно писать сразу в коде.
+когда создаём медиазапрос через переменную, надо ставить ~. пример:
+								@breakpoint-mobile: ~"(max-width: 700px)";
+								@media @breakpoint-mobile{}
+						~ в данном примере убирает "" 
+
+lesscss.org (вся документация)

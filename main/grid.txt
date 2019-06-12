@@ -1,0 +1,17 @@
+.div {
+	display:grid;
+	grid-template-columns: //для колонок
+	grid-template-rows	//для строк
+	grid-column: 1 / span2	// первая колонка займет 2 ячейки
+}
+
+1fr - еденица измерения(жадность, захватывает всё свободное пространство). предпочтительно писать в них
+fraction(доли)
+
+grid-template-columns: repeat(3, 1fr); - будет 3 блока по 1 fr
+
+grid-gap: 5px отстуты аля margin
+
+grid-auto-rows: 150px - все блоки будут иметь фиксированую высоту и содержимое может выпасть из блока
+
+grid-auto-rows:minmax(100px auto) -минемальная высота+ высота под размер контекста в блоке

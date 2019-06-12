@@ -1,0 +1,40 @@
+
+	<div class="bars">
+		<div class="bars_title">
+			design
+		</div>
+		<div class="bars_line">
+			<div style="width:77%;" class="one"></div>
+		</div>
+		<div class="bars_title">
+			design
+		</div>
+		<div class="bars_line">
+			<div style="width:30%;"></div>
+		</div>
+		<div class="bars_title">
+			design
+		</div>
+		<div class="bars_line">
+			<div style="width:50%;"></div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+.bars_line {
+	height:10px;
+	background-color: black;
+	width:50%;
+	margin-left: 20px;
+}
+
+.one {
+	height:10px;
+	background-color:orange;
+}
+

@@ -1,0 +1,58 @@
+html
+
+<div id="page_top" class="page_up">
+	<button>
+		<img class="page_up_image" src="images/arrow.png" alt="up">
+	</button>
+</div>
+
+
+css
+
+
+.page_up{
+	/*display: none;*/
+	position: fixed;
+	right: 50px;
+	bottom: 50px;
+}
+
+.page_up_image {
+	width: 50px;
+	transform: rotate(270deg);
+}
+
+
+
+
+js
+
+
+
+window.onload = function() {
+
+    var position; //тут мы записываем текущую координату (window.pageYOffset)
+    var time;   // будет отвечать за время прокрутки
+
+    document.getElementById("page_top").onclick = function(){
+        position = window.pageYOffset; //console.log(window.pageYOffset); ищем в консоле координату текущую
+       // window.scrollTo(0,0); для резкой прокрутки
+        ScrollToTop(); // запускает функцию*
+    }
+
+    function ScrollToTop(){                 
+        if (position > 0) {
+            window.scrollTo(0, position);
+            position = position - 300; //300 это скорость прокрутки в пикселях
+            time = setTimeout(ScrollToTop,100); //100 время в милисекундах
+        }
+        //эта функция повторяет сама себя до тех пор пока мы ее не остановим
+        else {
+            clearTimeout(time); // завершаем прокрутку
+            window.scrollTo(0,0); // дотянуть прокрутку страницы до нулевых координат
+        }
+    }
+
+   
+
+ }   
