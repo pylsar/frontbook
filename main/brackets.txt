@@ -1,5 +1,5 @@
-расширения:	emmet
+СЂР°СЃС€РёСЂРµРЅРёСЏ:	emmet
 		autosave files on window Blur
 		beautify
-		custom work - вкладки сверху
+		custom work - РІРєР»Р°РґРєРё СЃРІРµСЂС…Сѓ
 		less autocompile
