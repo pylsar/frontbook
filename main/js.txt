@@ -4,6 +4,13 @@
 .pop()  - удаляет последний элемент массива	
 .shift() - удаляет первый элемент массива			
 .unshift() - добавляет элемент в начало массива
+.splice() - удаляет элементы внутри массива. пример:
+		let array = ['today', 'was', 'not', 'so', 'great'];
+		array.splice(2, 2);
+		// remove 2 elements beginning with the 3rd element
+		// array now equals ['today', 'was', 'great']
+		состоит из трех параметров, где третий параметр добавляет элемент в массив(вставляет на место того который убрали)
+
 .hasOwnProperty() - проверяет есть ли свойство у объекта. пример: myObj.hasOwnProperty("top"); // true
 тернарный оператор : условие ? код, если условие выполняется : код, если условие не выполняется;
 Object.freeze - запрещает мутацию. пример: Object.freeze(obj);
@@ -95,3 +102,132 @@ import - импортирует функцию из другого файла п
 		console.log(typeof 0); // outputs "number"
 		console.log(typeof []); // outputs "object"
 		console.log(typeof {}); // outputs "object"
+Оператор ... - копирует массив и добавляет в новое место. пример:
+			let thisArray = ['sage', 'rosemary', 'parsley', 'thyme'];
+			let thatArray = ['basil', 'cilantro', ...thisArray, 'coriander'];
+			// thatArray now equals ['basil', 'cilantro', 'sage', 'rosemary', 'parsley', 'thyme', 'coriander']	
+indexOf() - показывает под каким номером идет эелемент в массиве. пример:
+		  	let fruits = ['apples', 'pears', 'oranges', 'peaches', 'pears'];
+
+			fruits.indexOf('dates') // returns -1
+			fruits.indexOf('oranges') // returns 2
+			fruits.indexOf('pears') // returns 1, the first index at which the element exists
+ассоциативный массив:
+	добавить значение в массив пример:
+			let food{some values}
+			food.someName = some value - ключ значение добавится в объект 			
+	удалить значение пример:
+			delete food.someName 		
+	узнать есть ли искомый объект: 
+			food.hasOwnProperty('someName'); - первый варинат
+			someName in food;		- второй вариант
+	Object.keys() - возвращает массив строковых элементов пример:
+			return Object.keys(food);	
+Конструкторы пишутся с большой буквы. пример:
+			function Bird() {
+			  this.name = "Albert";
+			  this.color = "blue";
+			  this.numLegs = 2;
+			}
+копирование конструктора в новую переменную:	
+		let blueBird = new Bird();
+
+		blueBird.name; // => Albert
+		blueBird.color; // => blue
+		blueBird.numLegs; // => 2
+
+Bird.prototype.numLegs=2 - у всех последующих объектов будет по умолчанию numLegs=2
+
+пример: 
+		let ownProps = [];
+		let prototypeProps = [];
+
+		for (let property in duck) {
+		  if(duck.hasOwnProperty(property)) {
+		    ownProps.push(property);
+		  } else {
+		    prototypeProps.push(property);
+		  }
+		}
+
+		console.log(ownProps); // prints ["name"]
+		console.log(prototypeProps); // prints ["numLegs"]
+Самый простой способ использования прототипов в конструкторе это сразу задать все параметры . пример:
+			Bird.prototype = {
+				constructor: Bird, // определяет конструктор, используется для надежности
+			  numLegs: 2,
+			  eat: function() {
+			    console.log("nom nom nom");
+			  },
+			  describe: function() {
+			    console.log("My name is " + this.name);
+			  }
+			};
+
+Для объектов имеющих разный тип лучше использоват не наследование а миксины пример:
+			let flyMixin = function(obj) {
+			  obj.fly = function() {
+			    console.log("Flying, wooosh!");
+			  }
+			};
+
+		let bird = {
+		  name: "Donald",
+		  numLegs: 2
+		};
+
+		let plane = {
+		  model: "777",
+		  numPassengers: 524
+		};
+
+		flyMixin(bird);
+		flyMixin(plane);
+
+Функцию необходимо вызывать. анонимная (immediately invoked function expression(IIFE))функция вызывается:
+
+		(function () {
+		  console.log("Chirp, chirp!");
+		})(); // this is an anonymous function expression that executes right away
+		// Outputs "Chirp, chirp!" immediately
+
+соединение объектов в одну функцию пример:
+		let motionModule = (function () {
+		  return {
+		    glideMixin: function (obj) {
+		      obj.glide = function() {
+		        console.log("Gliding on the water");
+		      };
+		    },
+		    flyMixin: function(obj) {
+		      obj.fly = function() {
+		        console.log("Flying, wooosh!");
+		      };
+		    }
+		  }
+		}) (); // The two parentheses cause the function to be immediately invoked
+
+concat() - добавляет в конц массива не мутирую
+push() -  добавляет в конец массива мутируя пример:
+		function nonMutatingPush(original, newItem) {			  
+			  return original.push(newItem); //  мутирует
+			  return original.concat(newItem)ж // не мутирует
+			}
+			var first = [1, 2, 3];
+			var second = [4, 5];
+			nonMutatingPush(first, second);
+
+
+
+
+
+
+
+
+https://www.w3schools.com/howto/howto_js_full_page_tabs.asp	
+https://www.w3resource.com/javascript-exercises/javascript-basic-exercises.php	
+https://edabit.com/challenges/javascript
+https://smartprogress.do/
+https://digitalbroccoli.com/2018/07/17/how-to-work-on-upwork/
+https://wp-best.ru/kak-natyanut-html-shablon-na-wordpress-chast-1/
+https://texterra.ru/blog/kak-sozdat-sayt-na-wordpress-polnoe-rukovodstvo-dlya-novichkov.html
