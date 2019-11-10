@@ -1,0 +1,34 @@
+чтобы изменить диск в консоли нужно написать название диска и : пример d:
+cd смена папки пример: cd foldername
+cd .. поднятся на уровень выше
+создание приложения
+npx create-react-app my-app
+cd my-app
+npm start
+компонент - это функция которая выдает html код синтаксисом JSX
+если используем компонент вне файла его надо экспотировать и импортировать
+экспорт : export default componentname;
+импорт : import componentName from './../componentFile';
+import React from 'react'; - импортируем библиотеку реакт из папки нод модулз
+название компоненты пишется с большой буквы
+	пример компонента:
+				class MyComponent extends React.Component{
+				    constructor(props) {
+				    super(props);
+				  }
+				  render() {
+				    return (
+				      <div>
+				        <h1>My First React Component!</h1>
+				        </div>
+				    );
+				  }
+				}
+				ReactDOM.render(<MyComponent/>, document.getElementById('challenge-node'))
+
+плагин для vs code  auto import 
+чтобы стили не были глобальными(тоесть избежать повторяющиеся названия классов) мы названию файла добавляем .module
+		пример : header.module.css(и соответственно в импорте меняем если надо)
+		при этом класс для тэгов теперь будут:
+		import classes from './Navbar.module.css'
+			<div className={classes.nav}></div>
