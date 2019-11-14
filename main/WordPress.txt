@@ -22,3 +22,57 @@ WordPress начало работы:
 	создаем function.php и в нем прописываем wp_enqueue_style (см wp-kama)
 	в header.php прописываем <?php wp_head(); ?>
 	в footer.php прописываем <?php wp_footer(); ?>
+пример functions.php :
+			<?php
+			add_action('wp_enqueue_scripts', 'portfolio_styles');
+			add_action('wp_footer', 'portfolio_scripts');
+
+			function portfolio_styles(){
+				// echo "123";
+				wp_enqueue_style('style', get_stylesheet_uri());
+				wp_enqueue_style( 'fancy_style', get_template_directory_uri() . '/assets/css/jquery.fancybox-1.3.4.css' );
+
+			}
+
+			function portfolio_scripts(){
+				wp_deregister_script('jquery'); // удаляет ранее зарегестрированую библиотеку jquery
+				wp_register_script( 'jquery', '//code.jquery.com/jquery-2.2.4.min.js');
+				wp_enqueue_script( 'jquery' );
+				wp_enqueue_script('fancy_script', get_template_directory_uri() . '/assets/js/jquery.fancybox-1.3.4.js', (jquery), null, true);
+				wp_enqueue_script('main', get_template_directory_uri() . '/assets/js/scripts.js', [jquery], null, true);
+			}
+			?>
+новый адресс для картинки, которые не будут меняться заказчиком:
+	<?php bloginfo( 'template_url'); ?>	 важно после этого кода начинать путь с /	
+	пример: '<?php bloginfo( 'template_url'); ?>/assets/img/sprite.svg#iconmonstr-email-10'	
+title: <title><?php bloginfo( 'description'); ?></title> и теперь мы можем менять содержимое в админке в разделе settings
+чтобы менять контент надо в плагинах установить advanced custom fields. устанавливаем и активируем. в админке появится вкладка custom fields
+Заходим в админке в pages выбираем пример страницы и переименовываем ее в main page через quick edit  --> update
+далее заходим в settings --> reading и выбираем что отображать на главной странице(a static page -->homepae: main page)
+custom fields --> add new --> post type: page Мы соединили нашу главную страницу с нашим полем --> add field
+в add field :
+		field label --> first screen
+		field type 	--> tab
+		publish
+pages --> all pages очищаю содержимое далее захожу в fields --> add field	
+создаем поля которые будем менять и выстраиваем под нужными страницами(перетаскиваем за циферку)
+чтобы соединить поля с кодом пишем вместо текста <?php the_field('название которое мы дали');?>	обращаем внимание на кавычки у css" у php'
+загрузка изображений: add field --> type: image
+									reurn format: image url
+									preview size: full size
+чтобы зарегестрировать меню:
+			в файле functions.php: 	
+							add_action( 'after_setup_theme', 'MenuPorfolio' ); // регисрируем верхнее меню
+							function MenuPorfolio() {
+								register_nav_menu( 'MenuPorfolio', 'top' );
+							}
+			в админке: appearance --> menus --> add menu
+			в menu location выбираем в выпадающем меню наше меню
+			ставим галочку у display location : top
+			в файле header.php выводим <?php wp_nav_menu(array(
+											'theme_location'  => 'MenuPorfolio',
+											'fallback_cb'     => '',							 
+										));?> 
+			код php пишется внутри тега nav
+			в админке создать меню --> выбрать его в managelocation --> в edit menu слева выбираем и добавляем строки
+	
