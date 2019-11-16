@@ -1,2 +1,2 @@
 # frontbook
-articles 1
+articles 12
