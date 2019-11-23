@@ -1,0 +1,72 @@
+﻿npm:
+	чтобы изменить диск в консоли нужно написать название диска и : пример d:
+	npm i create-react-app  установит пакет
+	в нужной папке shift + правая кнопка мыши --> открыть окно команд
+	cd смена папки пример: cd foldername
+	cd .. поднятся на уровень выше
+	cntr +c - в терминале останавливает компиляцию
+	создание приложения react:
+		npx create-react-app my-app
+		cd my-app
+		npm start
+json server установка:
+		npm install -g json-server
+запуск json server: 
+		json-server src/posts.json  и нажимаем enter, останавливаем сервер и заново запускаем его на другом порту 
+установка react router:
+	npm i react-router-dom -save
+	в App.js : import {BrowserRouter as Router, Route} from 'react-router-dom';
+	оборачиваем App.js в тег <Router></Router> 	
+	в App.js вместо компонента(например <Feed/>) пишем <Route path='/' component={Feed} exact/>
+	там где хотим поставить ссылки: import {Link} from 'react-router-dom'; и вместо тега <a> используем тег <Link to=""></Link>
+развернуть проект на боевом: 
+	npm run build
+	создастся папка build  ее и надо грузить на сервер
+клонировать репозиторий: в командной строке git clone ссылка
+версия ноды: в командной строке node -v
+чтобы обновить модули в папке node modules(сделать такие же как в packet.json): npm install
+при установке пакетов через npm флаг -save заносит данные в packet.json. это нужно для того чтобы с другого компа не вспоминать что было установлено(так как папка node modules находится в .gitignor). командная строка ругнется и надо будет прописать npm install. и все команды которые есть в packet.json и которых нет в node modules уствновятся		
+
+
+
+папка public используется для хранения статических страниц
+названия классов всегда пишутся с большой буквы
+статус 200 - означает что сервер все правильно нам отдал и мы все получили
+props - не изменяются. мы создали компонент например с картинкой и все
+state - динамическая структура
+setState - устанавливает новое состояние
+в JSX используем className вместо class
+идентификатор key {} - пример. лента инстаграмм обновляет е сразу все посты а лишь те что изменились
+реакт фрагмент <>тут подряд разные дивы</>(тоесть не обязательно всю верстку оборачивать в див)
+
+
+пример: разбиваем css на модули Navbar.module.css
+	в Navbar.jsx  пишем import classes from './Navbar.module.css';
+	classes будем добавлять к className пример: было className="nav" стало className={classes.nav}
+	classes меняем только в jsx
+
+
+
+компонент - это функция которая выдает html код синтаксисом JSX
+если используем компонент вне файла его надо экспотировать и импортировать
+экспорт : export default componentname;
+импорт : import componentName from './../componentFile';
+import React from 'react'; - импортируем библиотеку реакт из папки нод модулз
+название компоненты пишется с большой буквы
+	пример компонента:
+				class MyComponent extends React.Component{
+				    constructor(props) {
+				    super(props);
+				  }
+				  render() {
+				    return (
+				      <div>
+				        <h1>My First React Component!</h1>
+				        </div>
+				    );
+				  }
+				}
+				ReactDOM.render(<MyComponent/>, document.getElementById('challenge-node'))
+
+плагин для vs code  auto import 
+
