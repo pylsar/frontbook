@@ -19,6 +19,8 @@ json server установка:
 	оборачиваем App.js в тег <Router></Router> 	
 	в App.js вместо компонента(например <Feed/>) пишем <Route path='/' component={Feed} exact/>
 	там где хотим поставить ссылки: import {Link} from 'react-router-dom'; и вместо тега <a> используем тег <Link to=""></Link>
+	чтобы добавить класс active: <li className={classes.item}><NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink></li> 
+	чтобы добавить id в url : <NavLink to={"/dialogs/" + props.id}>{props.name}</NavLink>
 развернуть проект на боевом: 
 	npm run build
 	создастся папка build  ее и надо грузить на сервер
@@ -38,11 +40,14 @@ setState - устанавливает новое состояние
 в JSX используем className вместо class
 идентификатор key {} - пример. лента инстаграмм обновляет е сразу все посты а лишь те что изменились
 реакт фрагмент <>тут подряд разные дивы</>(тоесть не обязательно всю верстку оборачивать в див)
+названия классов для стилей не писать через дефис
 
 
 пример: разбиваем css на модули Navbar.module.css
 	в Navbar.jsx  пишем import classes from './Navbar.module.css';
 	classes будем добавлять к className пример: было className="nav" стало className={classes.nav}
+	пример 2х классов: className = {`${classes.className1} ${classes.className2}`}
+	чтобы посмотреть что лежит в объекте classes: console.log(classes);
 	classes меняем только в jsx
 
 
@@ -69,4 +74,29 @@ import React from 'react'; - импортируем библиотеку реа�
 				ReactDOM.render(<MyComponent/>, document.getElementById('challenge-node'))
 
 плагин для vs code  auto import 
+внутри JSX код JavaScript надо писать в {}
 
+map() - метод нужен для того чтобы не писать много раз одно и тоже действие(т.е приходит 100 сообщений с сервера и map все их перебирает и выводит)
+чемто похож на цикл
+		пример:
+				const MyPosts = () => {
+
+				let postsData = [
+					{id: 1, message: 'whats up', likesCount: 67},
+					{id: 2, message: 'whats viber', likesCount: 26}
+				]
+
+				let postsElement = postsData.map( (posts) =>{
+					return (
+						<Post message={posts.message} likesCount={posts.likesCount} />
+					)
+				} )
+
+				return (
+					<div className={classes.posts_block}>	
+						<div className={classes.posts}>
+							{postsElement}
+						</div>
+					</div>
+				)
+			}
