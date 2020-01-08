@@ -1,5 +1,6 @@
 переменные присваиваются:
 		справа значение. тоесть var a =b; var c=b; тогда обоим присвоим значение b. если сделаем var b = c; , то будет только 1 значение c
+.trim() - удаляет пробелы в конце и начале		
 .push() - добавляет элемент в конец массива
 .pop()  - удаляет последний элемент массива	
 .shift() - удаляет первый элемент массива			
@@ -219,8 +220,24 @@ push() -  добавляет в конец массива мутируя при�
 
 
 
+метод filter() - создает новый массив который удовлетворяет условиям. не изменяет стартовый массив
+		const millionPlusCities = cities.filter(function (e) { // вернет массив в котором население больше 1кк
+		  return e.population > 1000000;
+		});
+		console.log(millionPlusCities);
+filter() можно использовать в виде цепочки
+	пример:
+		cities.filter(e => e.population < 1000000)
+		.sort((a, b) => (b.population - a.population))
+		.map(e => console.log(e.name + ': ' + e.population));
+удалить первый и последний символ строки:
+		str.substring(1, str.length -1);
+округление до ближайшего целого:
+		Math.ceil(num);		
 
 
+getFullYear() - пример использования:
+		let newyear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0, 0);	
 
 
 
@@ -231,3 +248,5 @@ https://smartprogress.do/
 https://digitalbroccoli.com/2018/07/17/how-to-work-on-upwork/
 https://wp-best.ru/kak-natyanut-html-shablon-na-wordpress-chast-1/
 https://texterra.ru/blog/kak-sozdat-sayt-na-wordpress-polnoe-rukovodstvo-dlya-novichkov.html
+https://github.com/Automedon/CodeWars-8-kyu-Soluitions
+https://github.com/Automedon/CodeWars-7-kyu-Soluitions

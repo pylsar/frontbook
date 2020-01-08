@@ -130,3 +130,209 @@ map() - метод нужен для того чтобы не писать мн�
 				)
 			}
 суть реакта сводится к тому что мы не работаем с дом элементами в привычном смысле (никаких document.getElementById, addEventListener)
+
+
+чтобы вызвать state надо :
+		class MyComponent extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {
+		      name: 'freeCodeCamp'
+		    }
+		  }
+		  render() {
+		  const name = this.state.name;
+		    return (
+		      <div>
+	  			<h1>{name}</h1>
+		      </div>
+		    );
+		  }
+		};
+
+	или:
+		class MyComponent extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {
+		      name: 'freeCodeCamp'
+		    }
+		  }
+		  render() {
+		    return (
+		      <div>
+	  			<h1>{this.state.name}</h1>
+		      </div>
+		    );
+		  }
+		};
+
+нерекомендуется напрямую изменять this.state для этого используем this.setState() 
+	пример:
+		class MyComponent extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {
+		      name: 'Initial State'
+		    };
+		    this.handleClick = this.handleClick.bind(this);
+		  }
+		  handleClick() {
+		this.setState({name: 'React Rocks!'});
+		  }
+		  render() {
+		    return (
+		      <div>
+		        <button onClick={this.handleClick}>Click Me</button>
+		        <h1>{this.state.name}</h1>
+		      </div>
+		    );
+		  }
+		};	
+есть договоренность что: если свойство начинается с нижнего подчеркивания( пример this._hero=hero), то нельзя его менять напрямую
+
+setState() - изменяет состояние.
+	пример использования:
+		this.setState((state, props) => ({
+		  counter: state.counter + props.increment
+		}));
+	пример использования когда не нужны пропсы:
+		this.setState(state => ({
+		  counter: state.counter + 1
+		}));
+
+пример создания кнопки переключателя:
+		class MyComponent extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {
+		      visibility: false
+		    };
+		    this.toggleVisibility = this.toggleVisibility.bind(this);
+		  }
+		 toggleVisibility(){
+		  this.setState(state =>{
+		      if(state.visibility === true){
+		        return {visibility: false}
+		      }else {
+		        return {visibility: true}
+		      }
+		    })};
+		  render() {
+		    if (this.state.visibility) {
+		      return (
+		        <div>
+		          <button onClick={this.toggleVisibility}>Click Me</button>
+		          <h1>Now you see me!</h1>
+		        </div>
+		      );
+		    } else {
+		      return (
+		        <div>
+		          <button onClick={this.toggleVisibility}>Click Me</button>
+		        </div>
+		      );
+		    }
+		  }
+		};
+
+
+пример кода где при клике на кнопки мы увеличиваем уменьшаем и сбрасываем в 0:
+		class Counter extends React.Component {
+		  constructor(props) {
+		    super(props);
+		    this.state = {
+		      count: 0
+		    };
+		this.increment = this.increment.bind(this);
+		this.decrement = this.decrement.bind(this);
+		this.reset = this.reset.bind(this);
+		  }
+		reset(){
+		  this.setState((state) => ({
+		    count: 0
+		  }))
+		}
+
+		increment(){
+		this.setState((state) =>({
+		  count: state.count +1
+		}))
+		}
+
+		decrement(){
+		  this.setState((state)=> ({
+		    count: state.count -1
+		  }))
+		}
+
+		  render() {
+		    return (
+		      <div>
+		        <button className='inc' onClick={this.increment}>Increment!</button>
+		        <button className='dec' onClick={this.decrement}>Decrement!</button>
+		        <button className='reset' onClick={this.reset}>Reset</button>
+		        <h1>Current Count: {this.state.count}</h1>
+		      </div>
+		    );
+		  }
+		};
+
+
+Необходимо делать проверки типов(они не идут в продакшн):
+		подключаем библиотеку: 
+			import PropTypes from 'prop-types';
+		PropTypes экспортирует множество валидаторов, которые могут использоваться, чтобы убедиться, что данные, которые вы получаете, являются валидными. В данном примере мы используем PropTypes.number. Когда свойству предоставляется не валидное значение, будет показано предупреждение в JavaScript консоли. По соображениям производительности, propTypes работает только в режиме разработки.	
+		пример:
+			itemName.propTypes = {
+			  propsName: PropTypes.dataType.isRequired
+			};
+		пример:	
+			HelloWorld.propTypes = {
+			   name: PropTypes.string
+			};
+stateless(функциональные, тупые) компоненты - это компоненты без логики	
+
+событие в реакте:
+		событие onClick:
+			пишем функцию которая будет отвечать за нужные нам действия. обычно пишутся внутри компонента перед return
+			let addPost = () => {
+				let text = newPostElement.current.value; 
+				alert('text');
+			}
+		добавляем кнопке эту функцию в событии:
+			<button onClick={addPost}>add post</button> // важный момент: мы не ставим у функции ()
+		добавляем референсную ссылку(есть есть возможность обойтись без этого, то выбираем другой вариант)
+			let newPostElement = React.createRef();
+		прописываем откуда будем брать инфу:
+			<textarea ref={newPostElement}></textarea>
+			
+экспорт функции не по дефолту пример:
+ при создании функции начинаем со слова export пример:
+	export let addPost = (postMessage) => {
+    let newPost = {
+        id: 3,
+        message: postMessage,
+        likesCount: 0 
+    };
+    state.profilePage.posts.push(newPost);
+}
+так же не забываем прописывать импорт через {} пример:
+	import {addPost} from './redux/state';
+когда мы создаем функцию в state.js мы начинаем ее прокидывать через пропсы до нужного компанента пример: 
+		<Route path='/profile' render={ () => <Profile stateData={props.state.profilePage} addPost={props.addPost} /> }/>
+		
+при импорте экспорте логики важно не делать циклические зависимости
+bind() - используем чтобы обезопасить себя( мы привязываем свойства к методу). тоесть если мы вызываем функцию bind не нужен, а если 
+		мы передаём функцию в след компоненту то надо использовать bind
+		пример:
+				let rerenderEntireTree = (state) =>{
+					ReactDOM.render(<App 
+						state={state} 
+						addPost={store.addPost.bind(store)} 
+						updateNewPostText={store.updateNewPostText.bind(store)} />,
+						document.getElementById('root'));
+				}
+
+		
+		

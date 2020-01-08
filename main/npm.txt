@@ -1,0 +1,46 @@
+npm init - при старте webpack
+package name - имя проекта
+и тд
+после всех заполнений появится файл package.json которй позволит установить нужные нам зависимости
+npm install -D webpack webpack-cli webpack-dev-server
+далее создаем файл webpack.config.json  и прописываем в нем 
+const path = require('path');
+
+module.exports = {
+    entry: './src/app.js',
+    output: {
+        filename: 'bundle[chunkhash].js',   // [chunkhash] - чтобы не хэшировалось и показывала разницу в сборке
+        path: path.resolve(__dirname, 'public')
+    },
+    devServer: {
+        port: 3000
+    }
+}
+
+
+эта запись говорит нам о главном файле в приложении и о месте где мы будем собирать все наши js файлы в один
+
+в package.json прописываем
+
+"scripts": {
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
+  },
+
+эти команды открывают проект на деве и на проде  
+
+npm install -D html-webpack-plugin - для разработки
+npm i -D clean-webpack-plugin - для очистки не нужных билдов
+ctrl + c в консоли дважды останавливает webpack
+
+для подключения css стилей надо webpack.config подключить 2 плагина и прописать
+module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  }
+npm install -D style-loader css-loader
+так же для работы стилей необходимо в app.js прописать import './styles.css'  
