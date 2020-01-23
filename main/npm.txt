@@ -44,3 +44,6 @@ module: {
   }
 npm install -D style-loader css-loader
 так же для работы стилей необходимо в app.js прописать import './styles.css'  
+
+
+npm install node-sass - установка препроцессора scss

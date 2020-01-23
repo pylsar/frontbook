@@ -334,5 +334,21 @@ bind() - используем чтобы обезопасить себя( мы �
 						document.getElementById('root'));
 				}
 
-		
+в react-create-app serviceworker нужен для того чтобы наше приложение работало без интернета	
+
+условия в стилях:
+		function Joke(props) {
+		return (
+			<div>
+				<h3 style={{display: props.question ? "block" : "none"}}>Question: // если выполняется условие тогда ставим display: block, если нет - displat: none
+				{props.question}</h3>
+				<h3>Answer: {props.punchLine}</h3>
+			</div>
+			)
+		}
+
+npm install classnames - библиотека помогает работать с классами
+	пример	
+		<li key={index} className={classNames(item.className, {'active': item.active})}> // первый класс передаетсякак строка, второй по условию
+		если active true - то передастся класс
 		

@@ -1,16 +1,0 @@
-Write the result of these expressions: 
-6 / «3» 
-«2» * «3» 
-4 + 5 + «px» 
-«$» + 4 + 5 
-«4» — 2 
-«4px» — 2 
-7 / 0 
-typeof null 
-typeof {}[0] 
-typeof («4px» — 2) 
-parseInt(«09») 
-5 && 2 
-2 && 5 
-5 || 0 
-0 || 5
