@@ -1,0 +1,336 @@
+// Вид подключения
+	echo '
+	<div class="heating_tabs">
+		<div class="heating_tabs__top">
+			<span class="heating_tabs--text">Вид подключения</span>
+			<a href="#" class="heating_tabs--link">Подробнее о линейке Эстет</a>		
+		</div>
+		<ul class="heating_tabs__vue ">
+			 <li id="tab-1" class="heating_tabs_border">
+			 <label for="tab1">
+			 	<input name="vue" type="radio" value="universal"/>
+			 	<span class="hearing_tabs--tabstext">Универсальное</span>
+			 	<span class="hearing_tabs--sub_tabstext">(вертикальное, диагональное, нижнее)</span>
+			 
+			 	<div class="heating_tabs__check_vue_box heating_tabs__check_vue_active"></div>
+			 	<div class="heating_tabs__check_vue_sign heating_tabs__check_vue_active">&#10004;</div>
+			 </label>	
+			 </li>
+
+			 <li id="tab-2">
+			 <label for="tab2">
+			 	<input name="vue" type="radio" value="right"/>
+			 	<span class="hearing_tabs--tabstext">Нижнее EU50 правое</span>
+			 	<span class="hearing_tabs--sub_tabstext">(встроенный верхний вентиль)</span>
+			 
+			 	<div class="heating_tabs__check_vue_box"></div>
+			 	<div class="heating_tabs__check_vue_sign">&#10004;</div>
+			</label>
+			 </li>
+			 <li id="tab-3">
+			 <label for="tab3">
+			 	<input name="vue" type="radio" value="left"/>
+			 	<span class="hearing_tabs--tabstext">Нижнее EU50 левое</span>
+			 	<span class="hearing_tabs--sub_tabstext">(встроенный верхний вентиль)</span>
+			 </label>
+			 	<div class="heating_tabs__check_vue_box"></div>
+			 	<div class="heating_tabs__check_vue_sign">&#10004;</div>
+			 </li>
+		</ul>
+		<span class="heating_tabs--text">Высота</span>
+		<ul class=" heating_tabs__height">
+			 <li id="tab-4" class="heating_tabs_border">
+			 <label for="tab4">
+			 	<input name="height" type="radio" value="h500"/>
+			 	<span class="hearing_tabs--tabstext">500</span>
+			 </label>
+				 <div class="heating_tabs__check_height_box heating_tabs__check_height_active"></div>
+			 	<div class="heating_tabs__check_height_sign heating_tabs__check_height_active">&#10004;</div>
+			 </li>
+			 <li id="tab-5">
+			 <label for="tab5">
+			 <input name="height" type="radio" value="h1200"/>
+			 	<span class="hearing_tabs--tabstext">1200</span>
+			 </label>
+			 	<div class="heating_tabs__check_height_box"></div>
+			 	<div class="heating_tabs__check_height_sign">&#10004;</div>
+			 </li>
+			 <li id="tab-6">
+			 <label for="tab6"><input name="height" type="radio" value="h1800"/>
+			 	<span class="hearing_tabs--tabstext">1800</span>
+			 </label>
+			 	<div class="heating_tabs__check_height_box"></div>
+			 	<div class="heating_tabs__check_height_sign">&#10004;</div>
+			 </li>
+		</ul>
+		<span class="heating_tabs--text">Конструкция радиатора</span>
+		<ul class="heating_tabs__constructors">
+			 <li id="tab-7" class="heating_tabs_border">
+			 <label for="tab7">
+			 	<input name="constructor" type="radio" value="onerowdeaf"/>
+			 	<img src="/images/20191224_estet_1.png" alt="Однорядный глухой" class="heating_tabs__constructors__img">
+			 	<span class="hearing_tabs--tabstext">Однорядный глухой</span>
+			 	<span class="hearing_tabs--sub_tabstext">теплоотдача 1 секции до 47 Qвт</span>
+			 </label>
+			 	<div class="heating_tabs__check_constructor_box heating_tabs__check_constructor_active"></div>
+			 	<div class="heating_tabs__check_constructors_sign heating_tabs__check_constructor_active">&#10004;</div>
+			 </li>
+			  <li id="tab-8">
+			  <label for="tab8">
+			  	<input name="constructor" type="radio" value="onerowcoacs"/>
+			  	<img src="/images/20191224_estet_2.png" alt="Однорядный коаксиальный" class="heating_tabs__constructors__img">
+			 	<span class="hearing_tabs--tabstext">Однорядный коаксиальный</span>
+			 	<span class="hearing_tabs--sub_tabstext">теплоотдача 1 секции до 63 Qвт</span>
+			 </label>
+			 	<div class="heating_tabs__check_constructor_box"></div>
+			 	<div class="heating_tabs__check_constructors_sign">&#10004;</div>
+			 </li>
+			  <li id="tab-9">
+			  <label for="tab9">
+			  	<input name="constructor" type="radio" value="tworowdear"/>
+			  	<img src="/images/20191224_estet_3.png" alt="Двухрядный глухой" class="heating_tabs__constructors__img">
+			 	<span class="hearing_tabs--tabstext">Двухрядный глухой</span>
+			 	<span class="hearing_tabs--sub_tabstext">теплоотдача 1 секции до 72 Qвт</span>
+			 </label>
+			 	<div class="heating_tabs__check_constructor_box"></div>
+			 	<div class="heating_tabs__check_constructors_sign">&#10004;</div>
+			 </li>
+			  <li id="tab-10">
+			  <label for="tab10">
+			  	<input name="constructor" type="radio" value="tworowcoacs"/>
+			  	<img src="/images/20191224_estet_4.png" alt="Двухрядный коаксиальный" class="heating_tabs__constructors__img">
+			 	<span class="hearing_tabs--tabstext">Двухрядный коаксиальный</span>
+			 	<span class="hearing_tabs--sub_tabstext">теплоотдача 1 секции до 97 Qвт</span>
+			 </label>
+			 	<div class="heating_tabs__check_constructor_box"></div>
+			 	<div class="heating_tabs__check_constructors_sign">&#10004;</div>
+			 </li> 
+		</ul>
+	</div>	 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 <div class="heating_tab_container">     
+			  <div id="universal" class="tab_content one">universal</div>
+			  <div id="right" class="tab_content one">right</div>
+			  <div id="left" class="tab_content one">left</div>
+		</div>
+		<div class="heating_tab_container"> 	
+			<div id="h500" class="tab_content2 two">h500</div>
+			<div id="h1200" class="tab_content2 two">h1200</div>
+			<div id="h1800" class="tab_content2 two">h1800</div>
+		</div>
+		<div class="heating_tab_container">
+			<div id="onerowdeaf" class="tab_content3 three">Однорядный глухой</div>
+			<div id="onerowcoacs" class="tab_content3 three">Однорядный коаксиальный</div>
+			<div id="tworowdear" class="tab_content3 three">Двухрядный глухой</div>
+			<div id="tworowcoacs" class="tab_content3 three">Двухрядный коаксиальный</div>
+		</div>
+		
+		
+<script>
+
+$(document).ready(function($) {
+	//при загрузке
+	$(".tab_content, .tab_content2, .tab_content3").hide();
+	$(".heating_tabs__vue li:first").addClass("heating_tabs__vue_active").show().find("label input:radio").attr("checked",""); 
+	$(".heating_tabs__height li:first").addClass("heating_tabs__height_active").show().find("label input:radio").attr("checked","");
+	$(".heating_tabs__constructors li:first").addClass("heating_tabs__constructors_active").show().find("label input:radio").attr("checked","");
+	$(".tab_content:first, .tab_content2:first, .tab_content3:first").show();
+
+	
+
+ 	 //при клике
+  		//вид подключения
+	$(".heating_tabs__vue li").click(function() {
+		$(".heating_tabs__vue li").removeClass("heating_tabs__vue_active"); // удаляем активные классы
+		$(".heating_tabs__vue li").removeClass("heating_tabs_border"); // удаляем обводку таба
+		$(".heating_tabs__check_vue_box, .heating_tabs__check_vue_sign").removeClass("heating_tabs__check_vue_active"); // удаляем галочку
+		
+		$(".heating_tabs__vue li").find("label input:radio").attr("checked",""); // ищем класс с checked
+		$(this).addClass("heating_tabs__vue_active").find("label input:radio").attr("checked","checked");
+		$(this).addClass("heating_tabs_border"); // добавляем обводку табу
+		$(".heating_tabs__vue_active .heating_tabs__check_vue_box, .heating_tabs__vue_active .heating_tabs__check_vue_sign").addClass("heating_tabs__check_vue_active"); // добавляем галочку
+		$(".tab_content").hide(); // прячем содержимое контента
+		var activeTab = $(this).find("label input:radio").val(); //Find the href attribute value to identify the active tab + content
+		$("#" + activeTab).fadeIn(); //Fade in the active ID content	
+		return false;
+	});
+	
+		// высота	
+	$(".heating_tabs__height li").click(function() {
+		$(".heating_tabs__height li").removeClass("heating_tabs__height_active");
+		$(".heating_tabs__height li").removeClass("heating_tabs_border");
+		$(".heating_tabs__check_height_box, .heating_tabs__check_height_sign").removeClass("heating_tabs__check_height_active");
+		
+		$(".heating_tabs__height li").find("label input:radio").attr("checked","");
+		$(this).addClass("heating_tabs__height_active").find("label input:radio").attr("checked","checked");
+		$(this).addClass("heating_tabs_border");
+		$(".heating_tabs__height_active .heating_tabs__check_height_box, .heating_tabs__height_active .heating_tabs__check_height_sign").addClass("heating_tabs__check_height_active");
+		$(".tab_content2").hide(); 
+		var activeTab = $(this).find("label input:radio").val(); //Find the href attribute value to identify the active tab + content
+		$("#" + activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});	
+		// Конструкция радиатора
+	$(".heating_tabs__constructors li").click(function() {
+		$(".heating_tabs__constructors li").removeClass("heating_tabs__constructors_active");
+		$(".heating_tabs__constructors li").removeClass("heating_tabs_border");
+		$(".heating_tabs__check_constructor_box, .heating_tabs__check_constructors_sign").removeClass("heating_tabs__check_constructor_active");
+		
+		$(".heating_tabs__constructors li").find("label input:radio").attr("checked","");
+		$(this).addClass("heating_tabs__constructors_active").find("label input:radio").attr("checked","checked");
+		$(this).addClass("heating_tabs_border");
+		$(".heating_tabs__constructors_active .heating_tabs__check_constructor_box, .heating_tabs__constructors_active .heating_tabs__check_constructors_sign").addClass("heating_tabs__check_constructor_active");
+		$(".tab_content3").hide(); 
+		var activeTab = $(this).find("label input:radio").val(); //Find the href attribute value to identify the active tab + content
+		$("#" + activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});	
+
+		
+
+// переключаем урл	
+
+		$(".heating_tabs li").each(function(i){ 
+		    $("li").click(function(){
+		    var $one = $(".heating_tabs__vue_active");
+		    var $two = $(".heating_tabs__height_active");
+		    var $three = $(".heating_tabs__constructors_active");
+// убираем # из урла	
+		    var $hash ="/productions/heating/products.php?IB=7&IS=2035&IM=R" + "&" + $one[i].id + "&" + $two[i].id + "&" + $three[i].id;
+				if (window.location.search != $hash) {
+				history.pushState("", "", $hash);
+			}
+		});
+	});	    
+});
+	
+</script>
+
+	
+	
+	';
+
+
+
+стили
+.heating_tabs{
+	background-color: #F1F1F1;
+	padding-bottom: 30px;
+}
+
+.heating_tabs__top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.heating_tabs--text {
+	display: block;
+	padding: 20px 30px 10px 30px;
+	font-size: 14px;
+	color: #000000;
+	font-weight: bold;
+}
+
+.hearing_tabs--tabstext{
+	font-weight: bold;
+	display: block;
+}
+
+.hearing_tabs--sub_tabstext {
+	font-size: 11px;
+}
+
+.heating_tabs--link {
+	padding: 20px 30px 10px 30px;
+}
+
+.heating_tabs__constructors__img {
+	width: 85px;
+	border-radius: 50%;
+}
+
+.heating_tabs__vue, .heating_tabs__height, .heating_tabs__constructors {
+	display: flex;
+	justify-content: space-around;
+}
+
+.heating_tabs__vue li , .heating_tabs__height li , .heating_tabs__constructors li {
+	border-radius: 5px;
+	background-color: #FFFFFF;
+	border: 1px solid #D6D6D6;
+	list-style: none;
+	position: relative;
+}
+
+.heating_tabs_border{
+	border: 10px solid #169AFF!important;
+}
+
+.heating_tabs__vue li label, .heating_tabs__height li label, .heating_tabs__constructors li label{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 100%;
+	height: 100%;
+}
+
+.heating_tabs__vue li {
+	width: 220px;
+	height: 70px;
+}
+
+.heating_tabs__height li {
+	width: 220px;
+	height: 40px;
+}
+
+.heating_tabs__constructors li {
+	width: 160px;
+	height: 212px;
+}
+
+.heating_tabs__vue_active, .heating_tabs__height_active, .heating_tabs__constructors_active{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.heating_tabs input[type=radio] {
+	display: none;
+}
+
+.heating_tabs__check_vue_box, .heating_tabs__check_height_box, .heating_tabs__check_constructor_box{
+	display: none;
+	border: 1px solid #94C551;
+	width: 16px;
+	height: 16px;
+	border-radius: 5px;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	z-index: 100;
+
+}
+
+.heating_tabs__check_vue_sign, .heating_tabs__check_height_sign, .heating_tabs__check_constructors_sign{
+	display: none;
+	font-size: 14px;
+	color: #94C551;
+	position: absolute;
+	top: 2px;
+	right: 7px;
+}
+
+.heating_tabs__check_vue_active, .heating_tabs__check_height_active, .heating_tabs__check_constructor_active {
+	display: block;
+}

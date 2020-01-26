@@ -250,3 +250,8 @@ https://wp-best.ru/kak-natyanut-html-shablon-na-wordpress-chast-1/
 https://texterra.ru/blog/kak-sozdat-sayt-na-wordpress-polnoe-rukovodstvo-dlya-novichkov.html
 https://github.com/Automedon/CodeWars-8-kyu-Soluitions
 https://github.com/Automedon/CodeWars-7-kyu-Soluitions
+http://old.code.mu/tasks/advanced/javascript/react/rabota-s-jsx-v-frejmvorke-react.html
+https://maxpfrontend.ru/vebinary/razbor-testovogo-zadaniya-react-junior-razrabotchika/
+
+
+

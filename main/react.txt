@@ -351,4 +351,100 @@ npm install classnames - библиотека помогает работать 
 	пример	
 		<li key={index} className={classNames(item.className, {'active': item.active})}> // первый класс передаетсякак строка, второй по условию
 		если active true - то передастся класс
+	пример:
+		className={selectColor === color.id && 'active'}  
+		добавит класс если условие выполянется
+		
+-------------
+toggle переключалка
+			создадим массив там где будет переключалка
+				const [visiblePopup, setVisiblePopup] = useState(false);
+			на li вешаем функцию твечающую за переключение
+				onClick ={()=> setVisiblePopup(!visiblePopup)}
+			далее в родительском элементе ul прокидываем в пропсах onClick
+				const List = ({ items, isRemovble , onClick})......
+			и на ul вешаем onClick	
+				<ul onClick={onClick} className="list">
+-----------------				
+переключалка:
+class Dropdown extends Component {
+		constructor(props){
+		super(props);
+		this.state = {isOpened: false}; // изначально задаем что выпадашка не показывается
+	}
+
+	toggleState() {
+		this.setState({isOpened : !this.state.isOpened}); // переключаем состояние с true на false и обратно
+	}
+	
+	render(){
+		console.log('isOpened', this.state.isOpened);
+		let dropdownText;
+		if(this.state.isOpened){
+			dropdownText = <div>some text</div>
+		}
+		return(){
+			<div onClick={this.toggleState.bind(this)}>
+				its dropdown baby
+				{dropdowntext}
+			</div>
+		}
+	}
+}	
+----------------------------
+Пропсы
+создаем массив с данными const todos=[
+							{id:1, title: 'one'},
+							{id:2, title: 'two'}
+						]
+далее в компоненте <Todo sometitle={todos}/>	
+далее в дочернем компоненте принимаем в функцию props	
+и пишем внутри return {sometitle.props.map((todo, index) =>{
+						return <TodoItem todo={todo} key={todo.id} index={index}/>
+					})}			
+далее в компоненте TodoItem		функции передаем {todo} // 
+
+	function TodoItem({todo, index}){
+		return <li><strong>{index +1}</strong>{todo.title}</li>
+	}		
+
+--------------------------------
+Валидация
+	Для компонента TodoList
+		устанавливаем бибиотеку npm install prop-types
+		import PropTypes from 'prop-types'
+		перед export default TodoList пишем
+		TodoList.propTypes = {
+			todos: propTypes.array // так как мы ожидаем массив
+			// еще пример: todos: propTypes.arrayOff(ProtoTypes.object).isRequired  - тут мы делаем проверку на то что массив состоит из объектов и он необходим нам для работы приложения
+		}
+	Для компонента TodoItem
+		TodoItem.protoTypes = {
+			todo: protoTypes.object.isRequired,
+			index: protoTypes.number,
+			onChange: protoTypes.func.isRequired 
+		}
+		 	
+----------
+пустой div делается путем 
+	<React.fragment></React.fragment>
+так же можно упростить запись
+	import React, {Fragment} from 'react'
+	<fragment></fragment>
+
+
+отобразить разметку если состояние подходит нам:
+	const AddListButton () =>{
+		const [visiblePopup, setVisiblePopup] = useState(false);
+	return(
+		{visiblePopup && <div className="add-button">   // тоесть если visiblePopup будет true, то разметка после него отобразится
+			<h1>123</h1>
+			</div>
+		}
+	)
+}
+
+--------------
+key нужен когда мы рендерим список				
+				
 		
