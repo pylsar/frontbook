@@ -1,0 +1,25 @@
+Регестрируемся на Heroku
+	pass C_2
+устанавливаем heroku на комп
+	в консоле пишем heroku чтобы убедиться что хероку установилось
+убеждаемся что в .gitignor все норм	
+логинимся (в своем проекте пишем)
+	heroku login
+	нажимаем любую клавишу кроме q
+	открывается сайт heroku и там мы логинимся
+создадим новый проект 
+	heroku create $APP_NAME --buildpack mars/create-react-app
+	https://shrouded-savannah-70720.herokuapp.com/ | https://git.heroku.com/shrouded-savannah-70720.git как пример
+далее можно зайти в наш проект на heroku
+заливаем в проект наш проект из гитхаб
+	heroku git:remote -a kysovcartoons
+	git add .
+	git commit -am "здесь коммент если нужен"
+	git push heroku master - начинается заливка
+
+Открываем 
+	heroku open
+	
+https://github.com/mars/create-react-app-buildpack инструкция по билду	
+
+	

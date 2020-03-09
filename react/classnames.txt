@@ -1,0 +1,10 @@
+classnames библиотека
+	npm install classnames
+	import classNames from 'classnames';
+	
+	пример	
+		<li key={index} className={classNames(item.className, {'active': item.active})}> // первый класс передаетсякак строка, второй по условию
+		если active true - то передастся класс
+	пример:
+		className={selectColor === color.id && 'active'}  
+		добавит класс если условие выполянется

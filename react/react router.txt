@@ -1,0 +1,16 @@
+установка react router:
+	npm i react-router-dom -save
+	в App.js : import {BrowserRouter as Router, Route} from 'react-router-dom';
+	оборачиваем App.js в тег <Router></Router> 	
+	в App.js вместо компонента(например <Feed/>) пишем <Route path='/' component={Feed} exact/>
+	существуют варианты когда надо передать пропсы  в <Route>, тогда запись будет выглядеть след образом:
+		<Route path='/' render={ () => <Feed/>} />
+		так же можно задать через переменную. пример:
+			let SomeComponent = () => <Feed/>;
+			<Route path='/' component={SomeComponent} />
+			render вроде как работает шустрее
+			
+			
+	там где хотим поставить ссылки: import {Link} from 'react-router-dom'; и вместо тега <a> используем тег <Link to=""></Link>
+	чтобы добавить класс active: <li className={classes.item}><NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink></li> 
+	чтобы добавить id в url : <NavLink to={"/dialogs/" + props.id}>{props.name}</NavLink>

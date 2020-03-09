@@ -1,0 +1,58 @@
+AXIOS
+	для отправки http запросов и получении данных
+	по сути axios передает promis
+	npm install axios
+	
+	  useEffect(()=>{
+		Axios.get('http://localhost:3001/lists?_expand=color').then(({data}) =>{
+		
+		})
+	  }, [lists])
+	эта запись говорит, что как только lists обновится, но отправляем запрос
+	.then() используется в том случае, если запрос точно выполнился
+	.catch() отлавливает ошибку
+	.finally() завершает загрузку при любом исходе
+	.delete() удаляет объект в базе данных
+		пример:
+			    setIsLoading(true); // перед тем как отправить запрос делаем загрузку
+					axios.post('http://localhost:3001/lists',{
+						name: inputValue, colorId: selectedColor}).then(({data}) => {
+							const color = colors.filter(c => c.id === selectedColor)[0].name
+							const listObj = {...data, color: {name: color}};
+					onAdd(listObj);
+					onClose();
+					}).catch(() => {
+						setIsLoading(false); // после успешной загрузки убираем загрузку
+					})
+		пример2:
+				const RemoveList = (item)=>{
+					if(window.confirm('Вы действительно хотите удалить список?')){
+						axios.delete('http://localhost:3001/lists/' + item.id).then(() => {
+							onRemove(item.id);
+						})
+					}
+				}
+				
+				
+				
+		пример запроса с сервера axios без хуков:
+			state = {
+        cartoons: []
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:3001/sidebar')
+            .then(res => {
+                console.log(res.data)
+                this.setState({
+                    cartoons: res.data
+                })
+            })
+    }
+	
+	{this.state.cartoons.map((cartoon, index) => {
+                        return <li key={index}><a href="#">{cartoon.label}</a></li>
+                    })}
+					
+					
+http://localhost:3001/lists?_expand=color&embed=tasks - чтобы прикрутить таблицу tasks в моем примере туду					

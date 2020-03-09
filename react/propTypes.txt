@@ -1,0 +1,49 @@
+PropTypes
+	установка: npm install --save prop-types
+	используем в том компоненте откуда берутся пропсы (откуда деструктиризуем)	
+
+Необходимо делать проверки типов(они не идут в продакшн):
+		подключаем библиотеку: 
+			import PropTypes from 'prop-types';
+		PropTypes экспортирует множество валидаторов, которые могут использоваться, чтобы убедиться, что данные, которые вы получаете, являются валидными. В данном примере мы используем PropTypes.number. Когда свойству предоставляется не валидное значение, будет показано предупреждение в JavaScript консоли. По соображениям производительности, propTypes работает только в режиме разработки.	
+		пример:
+			itemName.propTypes = {
+			  propsName: PropTypes.dataType.isRequired
+			};
+		пример:	
+			HelloWorld.propTypes = {
+			   name: PropTypes.string
+			};
+			
+
+--------------------------------
+пример Валидации
+	Для компонента TodoList
+		устанавливаем бибиотеку npm install prop-types
+		import PropTypes from 'prop-types'
+		перед export default TodoList пишем
+		TodoList.propTypes = {
+			todos: propTypes.array // так как мы ожидаем массив
+			// еще пример: todos: propTypes.arrayOff(ProtoTypes.object).isRequired  - тут мы делаем проверку на то что массив состоит из объектов и он необходим нам для работы приложения
+		}
+	Для компонента TodoItem
+		TodoItem.protoTypes = {
+			todo: protoTypes.object.isRequired,
+			index: protoTypes.number,
+			onChange: protoTypes.func.isRequired 
+		}			
+		
+------------------
+	
+	import PropTypes from 'prop-types';
+	class Greeting extends React.Component {
+	  render() {
+		return (
+		  <h1>Привет, {this.props.name}</h1>
+		);
+	  }
+	}
+
+	Greeting.propTypes = {     // тут с маленькой буквы
+	  name: PropTypes.string
+	};		

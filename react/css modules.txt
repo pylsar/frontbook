@@ -1,0 +1,6 @@
+пример: разбиваем css на модули Navbar.module.css
+	в Navbar.jsx  пишем import classes from './Navbar.module.css';
+	classes будем добавлять к className пример: было className="nav" стало className={classes.nav}
+	пример 2х классов: className = {`${classes.className1} ${classes.className2}`}
+	чтобы посмотреть что лежит в объекте classes: console.log(classes);
+	classes меняем только в jsx

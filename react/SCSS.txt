@@ -1,0 +1,20 @@
+	подключаем SCSS:
+		npm install node-sass
+переменные: 
+		$fs: 80px;
+		$color: #000000;
+		.list{
+			font-size: $fs;
+		}
+	импорты:
+		@import './normalize.css';
+	миксины:
+		объявляем
+			%name{
+				display: flex;
+				justify-content: center
+			}
+		подключаем
+			.list{
+				@extends name;
+			}	
