@@ -55,4 +55,46 @@ AXIOS
                     })}
 					
 					
-http://localhost:3001/lists?_expand=color&embed=tasks - чтобы прикрутить таблицу tasks в моем примере туду					
+http://localhost:3001/lists?_expand=color&embed=tasks - чтобы прикрутить таблицу tasks в моем примере туду	
+
+
+---------------------
+пример с подгрузкой на секунду и выводом товара после:
+	state={
+        isLoading: true,
+        products: []
+    }
+
+    componentDidMount(){
+        axios.get('http://localhost:3001/products')
+            .then(res => {
+                console.log(res.data)
+                setTimeout(() => {
+                    this.setState({
+                        isLoading: false,
+                        products: res.data
+                    })
+                }, 1000)
+            })
+    }
+
+    render(){
+        return(
+            <div>
+                {this.state.isLoading ? <h2>Товар приносят на сайт...</h2> : this.state.products.map((product, index) => {
+                        return (
+                            <div key={index}>
+                                <h3>{product.title}</h3>
+                            </div>
+                        )
+                    })}
+            </div>
+        )
+    }
+
+	
+---------------------------------
+	пример подгрузки фоток из json
+		{this.state.ninjas.map((ninja, index) => {
+                return <li key={index}><Link to={ninja.link}><img src={require(`../../assets/img/${ninja.src}.png`)} alt={ninja.name}/></Link></li>
+            })}

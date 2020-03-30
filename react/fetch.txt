@@ -1,0 +1,63 @@
+пример использования fetch на примере создания каталога и отдельных карточек
+	componentDidMount(){
+        const API_URL = 'http://localhost:3001/products'
+        fetch(API_URL)
+            .then(res => res.json())
+            .then(products => {
+                setTimeout(() => {
+                    this.setState({
+                        isLoading: false,
+                        products: products
+                    })
+                },1000)
+            })
+    }
+	
+для удобства выносим наш запрос в отдельный файл src/API.json
+
+	const API_URL = 'http://localhost:3001/products'
+
+	export function getAllProducts() {
+		return fetch(API_URL)
+			.then(res => res.json())
+	}	
+тогда первоначальный файл будет выглядеть:
+		import { getAllProducts} from '../../API'
+		componentDidMount(){
+			getAllProducts()
+				.then(products => {
+					setTimeout(() => {
+						this.setState({
+							isLoading: false,
+							products: products
+						})
+					},1000)
+				})
+		}
+на данный момент у нас есть каталог товаров, теперь создадим карточки товара
+
+с новом файле ViewProduct пишем 
+	componentDidMount(){
+		console.log(this.props)
+	}
+	тут мы находим цепочку пропсов до id
+теперь используя эту цепочку выведем карточку товара по id
+
+добавим в файл API.js
+		export function getProduct(id){
+			return fetch(`{API_URL}/${id}`)
+			.then(res => res.json())
+		}
+в файлк ViewProduct пишем
+		import { getProduct} from '../../API'
+		componentDidMount(){
+			getProduct(id)
+				.then(products => {
+					setTimeout(() => {
+						this.setState({
+							isLoading: false,
+							products: products
+						})
+					},1000)
+				})
+		}

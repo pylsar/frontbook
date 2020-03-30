@@ -47,3 +47,31 @@ npm install -D style-loader css-loader
 
 
 npm install node-sass - установка препроцессора scss
+
+--------------------------
+webpack
+	настройка:
+		npm init - базовая настройка
+			1) package name - по умолчанию берется имя папки
+			2) версия
+			3) описание
+			4) entry point - обычно index.js
+			5) тестовая команда
+			6) git repository
+			7) ключевые слова
+			8) автор например: Kusov <почта>
+			9) лицензия
+			10) ок
+далее устанавливаем webpack
+	npm install -D webpack webpack-cli
+-D означает, что мы сохраняем данные зависимости только для разработки	
+создаем новый файл с названием webpack.config.js и пишем в нем:
+const path = require('path')
+
+module.exports = {
+	mode: "development", 		// собираем все в режиме разработки
+	entry: "./src/index.js",    //входной файл
+	output: { 					// место куда складывать результат
+		filename: 'bundle.js'
+		path: path.resolve(__dirname, 'dist')				//	путь до места назначения. __dirname - системная переменная
+	}

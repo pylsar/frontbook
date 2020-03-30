@@ -605,7 +605,189 @@ href добавляем rel="noopener noreferrer"
 		onClick={this.handleFedor}
 		>дядя Фёдор
 	</div>
+	
+----------------------
+
+------------
+получить доступ к инпуту
+	в дочернем элементе(Input) через десруктуризацию передаём пропсы
+		
+		const Input = ({ onChange, value, name, placeholder }) => {
+		  return (
+		    <div>
+		      <input
+		        onChange={onChange}
+		        value={value}
+		        name={name}
+		        placeholder={placeholder}
+		      />
+		    </div>
+		  );
+		};
+	в родительском элементе:
+
+	class App extends React.Component {
+	  state = {
+	    value: ""    // задаем начальное значение value
+	  };
+
+	  onChangeHandle = event => {
+	    this.setState({
+	      value: event.target.value         // добираемся до значения инпута
+	    });
+	  };
+
+	  render() {
+	    return (
+	      <div className="App">
+	        <Input value={this.state.value} onChange={this.onChangeHandle} />  // onChange и value обязательно должен быть в дочернем компоненте
+	        <p>your text: {this.state.value}</p>  // выводим значение на экран
+	      </div>
+	    );
+	  }
+	}
+
+-----------------------
+чтобы не писать одинаковые обрабтчики onChange
+		state={
+			product: {}
+		}
+
+		changeHandler = event => {
+			const {name, value} = event.target
+			this.setState((prevState) => ({
+				product: {
+					...prevState.product,
+					[name]: value
+				}
+			}))
+		}
+		
+----------------------
+ submitHandler = event => {
+        event.preventDefault()
+        console.log(this.state.product)
+    }
+после заполнения форм и при клике на кнопку консоль выведет все свойства	
+
+---------------
+
+валидация формы
+	 validProduct = () => {
+        const {product} = this.state
+        const hasTitle = product.title.trim() !== ''
+        const hasImg = product.img.trim() !== ''
+        const hasDescription = product.longDescr.trim() !== ''
+        const hasPrice = !isNaN(product.price) && Number(product.price) >=0
+        const hasQuantity = !isNaN(product.quantity) && Number(product.quantity) >=0
+
+        return hasTitle && hasImg && hasDescription && hasPrice && hasQuantity
+    }
+
+    formSubmitted = event => {
+        event.preventDefault()
+        // console.log(this.state.product)
+        if(this.validProduct()){
+            this.props.onFormSubmitted(this.state.product)
+        }
+    }
+
+--------------------------------------------------------
+import React from 'react'
+тем самым мы можем работать с jsx	
 				
+--------------------------------------------------------
+
+убираем по нажатию на кнопку имя которое рядом с кнопкой
+
+
+class App extends React.Component {
+	constructor() {
+		super();
+		this.state = {items: ['Коля', 'Вася', 'Петя', 'Иван', 'Дима']};
+	}
+
+	//Удаляем заданный элемент:
+	deleteItem(index) {
+		this.state.items.splice(index, 1);
+		this.setState({items: this.state.items});
+	}
+
+	render() {
+
+		//Формируем набор из тегов li:
+		const list = this.state.items.map((item, index) => {
+			return <li key={index}>
+				{item}
+				<button onClick={this.deleteItem.bind(this, index)}>
+					удалить
+				</button>
+			</li>;
+		});
+
+		return <ul>
+			{list}
+		</ul>
+	}
+}
+
+
+--------------------------------------------------------
+
+дан инпут и абзац. при вводе в инпут текст передается в абзац
+
+class Test extends React.Component {
+  state = {
+    value: ""
+  };
+
+  handleChange = e => {
+    this.setState({
+      value: e.target.value
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>dsf</h1>
+        <input onChange={this.handleChange} type="text" />
+        <p>{this.state.value}</p>
+      </div>
+    );
+  }
+}
+
+-----------------------------
+если setState вызвать в renderе то он будет постоянно перерисовываться и приложение рухнет
+
+
+-----------------------
+чтобы не писать на каждый инпут обработчик событий надо:
+	state={
+		title: ''
+	}
+
+	handleChange = event => {
+		event.persist() // для взаимодействия с event.target
+		this.setState(prev => ({...prev, ...{                    //вторые круглые скобки для того чтобы сразу вызывать метод // prev это предыдущий стейт // мы складываем предыдущий стйет с новым(спред оператором, это делает код более универсальным, хотя во многих случаях и без этого норм работать будет)
+			[event.target.name]: event.target.value
+	}}))
+	}
+
+	<input 
+		onChange={this.handleChange}
+		name="title"
+		value={this.state.title}
+	/>
+	
+-------------------------------------
+чтобы не выводить пустой экран
+	if (!posts.length) {
+    return <p>постов пока нет</p>;
+  }
+когда нет постов выводим пораграф  	
+
 
 
 

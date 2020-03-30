@@ -14,3 +14,11 @@
 	там где хотим поставить ссылки: import {Link} from 'react-router-dom'; и вместо тега <a> используем тег <Link to=""></Link>
 	чтобы добавить класс active: <li className={classes.item}><NavLink to="/profile" activeClassName={classes.active}>Profile</NavLink></li> 
 	чтобы добавить id в url : <NavLink to={"/dialogs/" + props.id}>{props.name}</NavLink>
+	
+	
+	пример для 404 ошибки
+		 <Route path="*" component={Error404} /> * означает все что не совпала с имеющимися путями
+		 ВСЕГДА ДОЛЖЕН СТОЯТЬ В КОНЦЕ?
+		 
+	пример Link с переменной
+		<Link to={`/products/${product.id}`}>Посмотреть продукт</Link>
