@@ -18,3 +18,6 @@
 			.list{
 				@extends name;
 			}	
+			
+если sass не устанавливается
+вот от сюда https://github.com/sass/node-sass/releases/ качаем win32-x64-59_binding.node (ну или свою версию, лог в ошибке будет), и закидываем ее в в кэш ноды C:\Users\имяПользователя\AppData\Roaming\npm-cache\node-sass\4.5.3			

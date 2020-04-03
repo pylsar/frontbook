@@ -27,4 +27,6 @@ console.log в терминале:
 	затем git push -u origin master
 плагин для vs code  auto import 	
 	
-	
+проверить версию node.js	
+		node -v
+		node.js установился только (правой кнопкой мыши --> установить)
