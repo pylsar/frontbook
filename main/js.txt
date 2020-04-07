@@ -237,8 +237,14 @@ filter() можно использовать в виде цепочки
 
 
 getFullYear() - пример использования:
-		let newyear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0, 0);	
+		let newyear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0, 0);
 
+метод toFixed() - верет количество символов после запятой
+		пример: 
+			var numObj = 12345.6789;
+			numObj.toFixed(6);      // Вернёт '12345.678900': обратите внимание на дополнение нулями
+			numObj.toFixed(1);      // Вернёт '12345.7': обратите внимание на округление
+			numObj.toFixed();       // Вернёт '12346': обратите внимание на округление, дробной части нет
 
 
 https://www.w3schools.com/howto/howto_js_full_page_tabs.asp	
