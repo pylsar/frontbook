@@ -15,6 +15,7 @@ action - объект
 в файле index.js:
 	import {Provider} from 'react-redux' // связывает редакс с реактом
 	import { compose, createStore } from 'redux'
+	import {rootReducer} from './redux/rootReducer'
 	const store = createStore(rootReducer, compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())); // создадим хранилище с объединеными редюсерами и подключим Redux DevTools Extension (девтулзы надо установить)
 	console.log(store.getState())  // выводит в консоль состояние стора 
 
