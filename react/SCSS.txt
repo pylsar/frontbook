@@ -20,5 +20,26 @@
 			}	
 			
 если sass не устанавливается
+<<<<<<< HEAD
 вот от сюда https://github.com/sass/node-sass/releases/ качаем win32-x64-59_binding.node (ну или свою версию, лог в ошибке будет), и закидываем ее в в кэш ноды C:\Users\имяПользователя\AppData\Roaming\npm-cache\node-sass\4.5.3	
 		
+=======
+вот от сюда https://github.com/sass/node-sass/releases/ качаем win32-x64-59_binding.node (ну или свою версию, лог в ошибке будет), и закидываем ее в в кэш ноды C:\Users\имяПользователя\AppData\Roaming\npm-cache\node-sass\4.5.3
+
+-------------
+Error: Node Sass does not yet support your current environment: Windows 64-bit with Unsupported runtime (72)
+	можно попробовать npm rebuild node-sass	
+		или
+	npm uninstall --save-dev node-sass	
+	npm install --save-dev node-sass
+		или
+	npm audit fix
+		или
+	npm install node-sass@4.12.0
+		или
+	npm install --unsafe-perm -g node-sass
+		или
+	npm update caniuse-lite browserslist	
+		или
+	npm rebuild node-sass --force   !!!!!!!!!!!!!!!!!помогло	
+>>>>>>> c6b6f6da76cc2137f797eda0784613930fcfe433
