@@ -30,3 +30,7 @@ console.log в терминале:
 проверить версию node.js	
 		node -v
 		node.js установился только (правой кнопкой мыши --> установить)
+		
+прикольная цветовая тема:
+	blackGernet
+	File -->Preferensec --> color Themes

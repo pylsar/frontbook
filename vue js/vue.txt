@@ -1,0 +1,125 @@
+ Не привязывать Vue к <body></body>
+ v-bind - деректива, используется перед атрибутами
+ внутри атрибутов не надо использовать {{}}
+ Вывести  на экран после нажатия на enter:
+		 <input id="name" type="text" v-model.lazy="name" />
+		 <p>{{ name }}</p>
+v-html="" - выводит на экран разметку html. надо пользоваться аккуратно, у этой дерективы есть уязвимости
+v-on:click='тут название метода' и @click='тут название метода' это одно и тоже
+v-on:keyup.enter - код сработает только после нажатия на энтер
+v-on:keyup.enter.space.left.up - код сработает  после нажатия на: либо после энтера, либо после пробела, либо после лево, либо после вверх
+v-if -стирает элемент из дом дерева
+v-show - сохраняет элемент в дом дерево, делает его display: none
+пример: <li v-for="person in people">{{person}}</li> - выводит на экран все person из масства people
+пример: <li v-for="(person, index) in people">{{index+1}} {{person}}</li> выведет список с нумерацией начиная с 1(+1 пишем чтобы нумирация не начиналась с нуля)
+v-if v-else-if v-elae надо использовать друг за другом(строго для одного уровня вложенности), если же так не получается, то заворачиваем код в <template></template> и условия даём ему
+
+----------------------------
+установка вью cli
+	npm install -g @vue/cli      // делается 1 раз
+	// для создания проекта
+	vue create my-project
+	cd my project // переходим в эту папку
+	code .  // открываем в вс коде
+	
+	npm run serve // запускаем дев 
+	
+----------------------------
+чтобы получить данные из инпута(аналог input: event.target.value в реакте) надо:
+	<input v-model="searchTearm" type="text" id="searchTearm" />
+	<script>
+		export default {
+		  name: 'App',
+		  data: () => ({
+			searchTearm: '',
+		  }),
+		}
+	</script>
+-------------------------------------
+отменить стандартное поведение формы
+	<form @submit.prevent="formSubmitted"></form>
+	<script>
+		export default {
+		  name: 'App',
+		  data: () => ({
+			searchTearm: '',
+		  }),
+		  methods: {
+			formSubmitted(){
+				
+			}
+		  }
+		}
+	</script>
+	
+-----------------------------------
+условие
+	<p v-if="loading">текст покажется если условие true</p>
+	
+	<script>
+		export default {
+		  name: 'App',
+		  data: () => ({
+			searchTearm: '',
+			loading: false
+		  }),
+		  methods: {
+			formSubmitted(){
+				
+			}
+		  }
+		}
+	</script>
+-------------------------------
+загрузить текст по submit
+	
+	<p v-if="loading">текст покажется если условие true</p>
+	
+	<script>
+		export default {
+		  name: 'App',
+		  data: () => ({
+			searchTearm: '',
+			loading: false
+		  }),
+		  methods: {
+			formSubmitted(){
+				this.loading = true  
+			}
+		  }
+		}
+	</script>
+	
+-----------------------------------------
+для подгрузки api(в данном примере апи картинок) создадим api.js
+
+	const API_URL = 'https://nature-image-api.now.sh/search?q=';
+	export default async function getImages(searchTearm){
+		const response = await fetch(`${API_URL}${searchTearm}`);
+		const json = await response.json();
+		return json.images.map(({image}) => image);
+	}
+и во вью пишем:
+	<script>
+	import getImages from './api';
+	  export default {
+		name: 'App',
+		data: () => ({
+		  searchTearm: '',
+		  loading: false,
+		  images: [],
+		}),
+		methods: {
+		  async formSubmitted(){
+			console.log('form was submitted')
+			this.loading = true;
+			this.images = [];
+			this.images = await getImages(this.searchTearm);
+			this.loading = false;
+		  }
+		}
+	  }
+	</script>
+	
+	
+	
