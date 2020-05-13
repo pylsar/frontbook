@@ -12,7 +12,7 @@ v-if -стирает элемент из дом дерева
 v-show - сохраняет элемент в дом дерево, делает его display: none
 пример: <li v-for="person in people">{{person}}</li> - выводит на экран все person из масства people
 пример: <li v-for="(person, index) in people">{{index+1}} {{person}}</li> выведет список с нумерацией начиная с 1(+1 пишем чтобы нумирация не начиналась с нуля)
-v-if v-else-if v-elae надо использовать друг за другом(строго для одного уровня вложенности), если же так не получается, то заворачиваем код в <template></template> и условия даём ему
+v-if v-else-if v-else надо использовать друг за другом(строго для одного уровня вложенности), если же так не получается, то заворачиваем код в <template></template> и условия даём ему
 
 ----------------------------
 установка вью cli
@@ -120,6 +120,94 @@ v-if v-else-if v-elae надо использовать друг за друго
 		}
 	  }
 	</script>
+--------------------------
+создание компонента
+	создаем Greetings.vue
+	<template>
+		<div>
+			<h1>Hello {{name}}</h1>
+			<button @click="changeName">Not {{name}} ?</button>
+		</div>
+	</template>
+	<script>
+		export default {
+			data: function(){
+				return{
+					name: 'Alex'
+				}
+			},
+			methods: {
+				changeName(){
+					this.name = this.name == 'Alex' ? 'Alexey' : 'Alex'
+				}
+			}
+		}
+	</script>
+далее в компоненте где хотим использовать шаблон пишем:
+	<template>
+		<Greetings />
+	</template>
+	<script>
+		import Greetings from '@/Greetings.vue'   //@ означает что поиск надо начинать с папки src
+		
+		export default {
+			components: {
+				Greetings    // мы как бы регистрируем его тут
+			}
+		}
+	</script>
+	
+-------------------
+vue init webpack reddit-clone
+
+--------------------
+передача от родителя дочерним компонентам
+	в родительском компоненте:(из App в TodoList)
+	<template>
+	  <div id="app">
+		<TodoList :todos="todos"/>  // первая это переменная а вторая это массив из data
+	  </div>
+	</template>
+	
+	
+	в дочернем компоненте:(TodoList)
+	<script>
+	export default {
+	  props: ['todos'], // todos это переменная из родительского компонента
+	  
+	};
+	</script>
+	
+	
+	передаем дальше наши свойста:(из TodoList в TodoItem)
+	<template>
+	  <div>
+		<ul>
+		  <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo"/> //последнее todo это каждый item из списка v-for
+		</ul>
+	  </div>
+	</template>
+	
+	
+	в дочернем компоненте:
+	<template>
+	  <li>{{todo.title}}</li>
+	</template>
+
+	<script>
+	export default {
+	  props: {
+		todo: {
+		  type: Object,
+		  required: true
+		}
+	  }
+	};
+	</script>
+	
+----------------------------
+класс по условию
+	<span :class="{done: todo.completed}"></span>
 	
 	
 	
