@@ -1,0 +1,18 @@
+Добавляем проект на firebase
+
+npm install firebase-tools -g 			// делается 1 раз на компе
+
+идем в проект и в терминале логинимся на firebase
+firebase login
+
+npm run build
+
+firebase init выбираем хостинг
+выбираем имеющийся проект на файрбез который мы создали
+What do you want to use as your public directory? build
+Configure as a single-page app (rewrite all urls to /index.html)? (y/N) y
+File build/index.html already exists. Overwrite? (y/N) N
+
+firebase deploy
+
+заходим в hosting и там будет ссылка
