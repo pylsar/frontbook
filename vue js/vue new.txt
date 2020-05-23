@@ -1,0 +1,146 @@
+$emit('название события которое мы придумаем', 'элемент по которому будем связывать')
+
+
+vue router
+	в папке src создаем router.js
+		import Vue from "vue";
+		import Router from "vue-router";
+		import Home from "@/views/Home";
+
+		Vue.use(Router);
+
+		export default new Router({
+		  mode: "history",
+		  routes: [
+		    {
+		      path: "/",
+		      component: Home
+		    },
+		    {
+		      path: "/todos",
+		      component: () => import("./views/Todos.vue")
+		    }
+		  ]
+		});
+
+
+в папке src создадим папку views  и Home.vue, Todos.vue			
+
+в Home.vue пишем
+
+<template>
+  <div>
+    <h2>Home page</h2>
+    <p>some text</p>
+    <router-link to="/todos">todos</router-link>
+  </div>
+</template>
+
+В App.vue добавляем в template <router-view/>
+---------------------------------------------------
+
+фильтры
+	<template>
+		<div>
+			<span>{{todos.title | uppercase}}</span>	
+		</div>
+	</template>
+
+	<script>
+	export default {
+		filters: {
+	    uppercase(value){
+	      return value.toUpperCase()
+	    }
+	  }
+	}  
+	</script>
+
+-----------------------
+значения в computed по сути переменные(туда записываются вычислительные данные)
+
+--------------------------------
+чтобы работать с scss нужно создать файл vue.config.js
+	module.exports = {
+		css:{
+			loaderOptions: {
+				sass: {
+					prependData: `@import "@/assets/styles/styles.scss";`
+				}
+			}
+		}
+	};
+в файле styles.scss 
+	@import 'variables.scss'	
+в файле main.js	
+import './assets/styles/styles.scss'
+
+
+--------------------------------------------
+передаем от родителя ребенку данные
+
+	в родительском компоненте
+		<CatalogItem v-for="product in products" :key="product.article" :product_data="product"/>
+
+	у ребенка пишем
+		props: {
+	    product_data: {
+	      type: Object, // тип объект
+	      default() {   // по умолчанию передаем пустй объект(как бы начальное свойство)
+	        return {}
+	      }
+	    }
+	  }
+------------------------------------------------
+подгрузить фото из папки
+	<img :src=" require('../assets/images/' + product_data.image) " alt="product_data.name">	  
+
+-------------------------------
+передаем от ребенка родителю.
+	$emit("название действия которое будем использовать в родителе", "то что хотим передать")	
+
+	пример: в ребенке пишем
+		<button @click="sendDataToParent">add to cart</button>
+		methods: {
+		    sendDataToParent() {
+		      this.$emit("sendDataToParent", this.product.article);
+		    }
+		 }
+
+	  в родителе:
+	  	<CatalogItem @sendDataToParent="newMethod"/>
+
+	  	methods: {
+		    newMethod(data) {
+		      console.log(data)
+		    }
+		 }
+
+		 //data (можно назвать как угодно)(в данном случае это this.product.article)
+
+
+
+
+---------------------------VUEX------------------------------
+создаем папку vuex в src и файл store.js
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+let store = new Vuex.Store({
+  state: {},
+  mutations: {}, //мутации синхронные, если вызовем 2, то вызовится только одна, а потом вторая
+  actions: {}, //асинхронные
+  getters: {}
+});
+
+export default store;
+
+и в файле main.js 
+	import store from './vuex/store'
+
+	new Vue({
+	  render: h => h(App),
+	  store
+	}).$mount("#app");
