@@ -209,5 +209,8 @@ vue init webpack reddit-clone
 класс по условию
 	<span :class="{done: todo.completed}"></span>
 	
+-------------
+npm install sass-loader node-sass --save-dev	
+	
 	
 	
