@@ -36,3 +36,5 @@ console.log в терминале:
 	File -->Preferensec --> color Themes
 	
 	cntrl D + выбираю слово - выберутся все слова
+------------------	
+тема Black Garnet

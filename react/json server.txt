@@ -14,3 +14,16 @@ json server установка:
 		3 - либо в packege.json  прописать скрипт :
 			  "fake-json" : "json-server ./src/assets/db.json --watch --port 3001" и в консоле пишем npm fake-json
 			  
+			  
+	создаем файл API.js
+		const API_URL = 'http://localhost:3001/products'
+
+		export function getAllProducts() {
+			return fetch(API_URL)
+				.then(res => res.json())
+		}
+
+		export function getProduct(id){
+			return fetch(`${API_URL}/${id}`)
+			.then(res => res.json())
+		}
