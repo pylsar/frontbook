@@ -113,7 +113,7 @@ npm install axios
         name: 'Sidebar',
         data() {
             return {
-            universities: null
+            universities: null  // нужно обязательно
             };
         },
         
