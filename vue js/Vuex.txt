@@ -1,0 +1,186 @@
+подгружаем через vuex данные с помщью axios:
+	store.js:
+		import Vue from 'vue'
+		import Vuex from 'vuex'
+		import axios from 'axios'
+
+		Vue.use(Vuex)
+
+		export default new Vuex.Store({
+		  state: {
+			products: []
+		  },
+		  mutations: {
+			SET_PRODUCTS_TO_STATE: (state, products) =>{
+			  state.products = products
+			}
+		  },
+		  actions: {
+			GET_PRODUCTS_FROM_API({commit}){
+			  return axios('http://localhost:3001/products',{
+				method: 'GET'
+			  })
+			  .then((products) =>{
+				commit('SET_PRODUCTS_TO_STATE', products.data)
+				return products
+			  })
+			  .catch((error) => {
+				console.log(error)
+				return error
+			  })
+			}
+		  },
+		  getters: {
+			PRODUCTS(state){
+			  return state.products
+			}
+		  },
+		  modules: {
+		  }
+		})
+	в родительском компоненте:
+		<template>
+			<div class="catalog">
+				<CatalogItem 
+					v-for='product in PRODUCTS'
+					:key="product.article"
+					:productData='product'
+					@sendArticle='showChildArticle'
+				/>
+			</div>
+		</template>
+
+		<script>
+		import CatalogItem from '@/components/CatalogItem'
+		import {mapActions, mapGetters} from 'vuex'
+
+		export default {
+			name: 'Catalog',
+			components: {
+				CatalogItem,
+			},
+			data(){
+				return {
+
+				}
+			},
+			computed:{
+				...mapGetters([
+					'PRODUCTS'
+				])
+			},
+			methods:{
+				...mapActions([
+					'GET_PRODUCTS_FROM_API'
+				]),
+				showChildArticle(data){
+					console.log(data)
+				}
+			},
+			mounted(){
+				this.GET_PRODUCTS_FROM_API()
+			}    
+		}
+		</script>
+		
+-----------------------------------
+в сторе:
+сначала создаем action. в нем через комит создаем мутацию
+	ADD_TO_CART({commit}, product){
+      commit('SET_CART', product)
+    },
+далее в mutations пишем действия	
+	SET_CART: (state, product) => {
+      state.cart.push(product)
+    }
+в компоненте:
+	import {mapActions} from 'vuex'
+	methods:{
+        ...mapActions([
+            'DELETE_FROM_CART'
+        ]),
+        deleteFromCart(index){
+            this.DELETE_FROM_CART(index)
+        }
+    }
+
+	--------------------------------------------
+пример подгрузки через axios и vuex
+	store:
+		import Vue from 'vue'
+		import Vuex from 'vuex'
+		import axios from 'axios'
+
+		Vue.use(Vuex)
+
+		export default new Vuex.Store({
+		  state: {
+			universities: []
+		  },
+		  mutations: {
+			SET_UNIVERSITIES_TO_STATE: (state, universities) =>{
+			  state.universities = universities
+			},
+		  },
+		  actions: {
+			GET_UNIVERSITIES_FROM_API({commit}){
+			  return axios('http://localhost:3001/universities',{
+				method: 'GET'
+			  })
+			  .then((universities) =>{
+				commit('SET_UNIVERSITIES_TO_STATE', universities.data)
+				return universities
+			  })
+			  .catch((error) => {
+				console.log(error)
+				return error
+			  })
+			},
+		  },
+		  getters: {
+			UNIVERSITIES(state){
+			  return state.universities
+			},
+		  },
+		  modules: {
+		  }
+		})
+
+	sidebar:
+		<template>
+			<div class="sidebar">
+				<ul>
+					<li v-for="university in UNIVERSITIES" 
+					:key="university.id"
+					>
+					<router-link :to="{name: 'University', params: {id: university.id }}">{{university.title}}</router-link> 
+					</li>
+				</ul>
+			</div>
+		</template>
+		<script>
+		import {mapActions, mapGetters} from 'vuex'
+			export default {
+
+				name: 'Sidebar',
+				data() {
+					return {
+					};
+				},
+				computed:{
+				...mapGetters([
+					'UNIVERSITIES'
+				])
+			},
+			methods:{
+				...mapActions([
+					'GET_UNIVERSITIES_FROM_API',
+				]),
+			},
+			mounted(){
+				this.GET_UNIVERSITIES_FROM_API()
+			}
+
+			}
+		</script>
+
