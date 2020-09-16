@@ -1,0 +1,289 @@
+/*убираем лишние элементы*/
+@media print {
+    .sale-order-detail-back-to-list-link-up,
+    #footer,
+    .b24-widget-button-block,
+    .sale-order-detail-back-to-list-link-down, .sale-order-detail-payment-options-methods-image-container,
+    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options-methods-information-block .sale-order-detail-payment-options-methods-image-container,
+    .sale-order-detail-payment-options-shipment-image-element,
+    .personal_wrapper .orders_wrapper .sale-order-detail-about-order-inner-container-repeat .sale-order-detail-about-order-inner-container-repeat-button,
+    .sale-order-detail-about-order-inner-container-details-title,
+    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options-methods-shipment-list-item-link,
+    .sale-order-detail-payment-options-shipment-composition-map-title,
+    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options-shipment-composition-map > .row,
+    .sale-order-detail-order-item-img-block,
+    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options-shipment .sale-order-detail-payment-options-shipment-image-container,
+    .personal_wrapper .orders_wrapper .sale-order-detail-about-order-inner-container-repeat .sale-order-detail-about-order-inner-container-repeat-cancel,
+    .top_inner_block_wrapper{
+        display: none;
+    }
+}
+
+@media print {
+    .sale-order-detail-about-order-inner-container-name-read-more{
+        display: none!important;
+        opacity: 0;
+        font-size: 0px;
+    }
+}
+
+@media print {
+    .sale-order-detail-about-order-inner-container-name-read-less{
+        display: none!important;
+    }
+}
+
+@media print {
+    .sale-order-detail-about-order-inner-container-details-list{
+        display: none;
+    }
+}
+
+/*изменяем верстку*/
+
+@media print {
+    .top_inner_block_wrapper{
+        display: none;
+    }
+    .sale-order-detail-about-order-inner-container-status-title{
+        padding-top: 15px;
+    }
+    .sale-order-detail-order-item-content{
+        margin-left: 5px;
+    }
+    .sale-order-detail-order-item-table{
+        padding-left: 15px;
+    }
+    .bx-text-right:nth-child(2) .sale-order-detail-order-item-td-text:before{
+        content:'Цена: ';
+        font-weight: normal;
+    }
+    .bx-text-right:nth-child(3) .sale-order-detail-order-item-td-text:before{
+        content:'Скидка: ';
+        font-weight: normal;
+    }
+    .bx-text-right:nth-child(5) .sale-order-detail-order-item-td-text:before{
+        content:'Количество: ';
+        font-weight: normal;
+    }
+    .bx-text-right:last-child .sale-order-detail-order-item-td-text:before{
+        content:'Сумма: ';
+        font-weight: normal;
+    }
+    .bx-text-right:nth-child(5) .sale-order-detail-order-item-td-text{
+        font-weight: bold;
+    }
+    .sale-order-detail-payment-options-methods-info-total-price{
+        padding: 0px;
+    }
+    .sale-order-detail-payment-options-methods-info-title-status-alert{
+        border: none;
+    }
+    .sale-order-detail-payment-options-info-total-price{
+        padding-top: 5px;
+        font-size: 13px;
+    }
+    .personal_wrapper .row:not(:last-child){
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .sale-order-detail-about-order-inner-container-name,
+    .sale-order-detail-about-order-inner-container-status,
+    .sale-order-detail-about-order-inner-container-price{
+        min-height: 70px;
+    }
+    .sale-order-detail-about-order-inner-container-repeat{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -10;
+    }
+    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options{
+        width: 50%;
+        display: inline-block;
+        margin-right: 10px;
+    }
+    .sale-order-detail-payment-options-info-order-number{
+        white-space: pre-line;
+    }
+    .personal_wrapper .orders_wrapper div.sale-order-detail-payment-options-methods{
+        border: 0px;
+    }
+    .personal_wrapper .orders_wrapper div.sale-order-detail-about-order-inner-container{
+        border-top: 1px solid #f2f2f2;
+        margin-top: 20px;
+    }
+    .personal_wrapper .sale-order-detail-payment-options-order-content .sale-order-detail-order-item-tr .sale-order-detail-order-item-td{
+        display: flex;
+        width: auto;
+    }
+    .personal_wrapper .sale-order-detail-payment-options-order-content .sale-order-detail-order-item-tr:last-of-type .sale-order-detail-order-item-td{
+        border: none;
+    }
+    .sale-order-detail-total-payment{
+        border-top: 1px solid #f2f2f2;
+    }
+}
+
+/*@media print {*/
+/*    .top_inner_block_wrapper{*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-about-order-inner-container-status-title{*/
+/*        padding-top: 15px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-order-item-content{*/
+/*        margin-left: 5px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-order-item-table{*/
+/*        padding-left: 15px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .bx-text-right:nth-child(2) .sale-order-detail-order-item-td-text:before{*/
+/*        content:'Цена: ';*/
+/*        font-weight: normal;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .bx-text-right:nth-child(3) .sale-order-detail-order-item-td-text:before{*/
+/*        content:'Скидка: ';*/
+/*        font-weight: normal;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .bx-text-right:nth-child(5) .sale-order-detail-order-item-td-text:before{*/
+/*        content:'Количество: ';*/
+/*        font-weight: normal;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .bx-text-right:last-child .sale-order-detail-order-item-td-text:before{*/
+/*        content:'Сумма: ';*/
+/*        font-weight: normal;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .bx-text-right:nth-child(5) .sale-order-detail-order-item-td-text{*/
+/*        font-weight: bold;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-payment-options-methods-info-total-price{*/
+/*        padding: 0px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-payment-options-methods-info-title-status-alert{*/
+/*        border: none;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-payment-options-info-total-price{*/
+/*        padding-top: 5px;*/
+/*        font-size: 13px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .personal_wrapper .row:not(:last-child){*/
+/*        display: flex;*/
+/*        align-items: center;*/
+/*        justify-content: space-between;*/
+/*        !*border: 1px solid red;*!*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-about-order-inner-container-name{*/
+/*        min-height: 70px;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .sale-order-detail-about-order-inner-container-status{*/
+/*        min-height: 70px;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .sale-order-detail-about-order-inner-container-price{*/
+/*        min-height: 70px;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .sale-order-detail-about-order-inner-container-repeat{*/
+/*        position: absolute;*/
+/*        top: 0;*/
+/*        left: 0;*/
+/*        z-index: -10;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options{*/
+/*        width: 50%;*/
+/*        display: inline-block;*/
+/*        margin-right: 10px;*/
+/*        !*border: 10px solid red;*!*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .personal_wrapper .orders_wrapper .sale-order-detail-payment-options-inner-container > .row:first-child div.sale-order-detail-payment-options-shipment{*/
+/*        !*border: 10px solid red;*!*/
+/*        !*display: flex;*!*/
+
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-payment-options-info-order-number{*/
+/*        white-space: pre-line;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .personal_wrapper .orders_wrapper div.sale-order-detail-payment-options-methods{*/
+/*        border: 0px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .personal_wrapper .orders_wrapper div.sale-order-detail-about-order-inner-container{*/
+/*        border-top: 1px solid #f2f2f2;*/
+/*        margin-top: 20px;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .personal_wrapper .sale-order-detail-payment-options-order-content .sale-order-detail-order-item-tr .sale-order-detail-order-item-td{*/
+/*        display: flex;*/
+/*        width: auto;*/
+/*    }*/
+/*}*/
+/*@media print {*/
+/*    .personal_wrapper .sale-order-detail-payment-options-order-content .sale-order-detail-order-item-tr:last-of-type .sale-order-detail-order-item-td{*/
+/*        border: none;*/
+/*    }*/
+/*}*/
+
+/*@media print {*/
+/*    .sale-order-detail-total-payment{*/
+/*        border-top: 1px solid #f2f2f2;*/
+/*    }*/
+/*}*/

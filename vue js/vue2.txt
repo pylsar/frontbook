@@ -1,4 +1,5 @@
 $emit('название события которое мы придумаем', 'элемент по которому будем связывать')
+при часто м использовании v-show шустрее v-if
 
 
 vue router
@@ -93,8 +94,7 @@ import './assets/styles/styles.scss'
 	  }
 ------------------------------------------------
 подгрузить фото из папки
-	<img :src=" require('../assets/images/' + product_data.image) " alt="product_data.name">
-	<img :src="require('../assets/img/' + university.img)" alt="" />	
+	<img :src=" require('../assets/images/' + product_data.image) " alt="product_data.name">	  
 
 -------------------------------
 передаем от ребенка родителю.
@@ -119,12 +119,7 @@ import './assets/styles/styles.scss'
 
 		 //data (можно назвать как угодно)(в данном случае это this.product.article)
 
--------------------------------------------------------------
-чтобы добавить характеристику которой ет в json:
-	mounted(){
-		this.$set(this.масиив куда добавляем, 'название харки', 'стартовое значение')
-	}
-	//$set нужен чтобы не потерять реактивность
+
 
 
 ---------------------------VUEX------------------------------
@@ -150,3 +145,88 @@ export default store;
 	  render: h => h(App),
 	  store
 	}).$mount("#app");
+
+
+-------------------------------------------------
+
+табы на вью:
+	<template>
+	  <div id="app">
+	    <div class="tabs">
+	      <div class="tabs__header">
+	        <div
+	          @click="chooseTab(index)"
+	          :class="{'activeTab' : currentTab === index}"
+	          v-for="(item, index) in tabsTitles"
+	          :key="item.name"
+	          class="tab"
+	        >{{item.name}}</div>
+	      </div>
+	      <div class="tabs__content">
+	        <div v-show="currentTab === 0" class="tab__content">clock content</div>
+	        <div v-show="currentTab === 1" class="tab__content">coffe content</div>
+	        <div v-show="currentTab === 2" class="tab__content">launch content</div>
+	      </div>
+	    </div>
+	  </div>
+	</template>
+
+	<script>
+		export default {
+		  name: "App",
+		  data() {
+		    return {
+		      tabsTitles: [
+		        { name: "clock" },
+		        { name: "coffe break" },
+		        { name: "launch" }
+		      ],
+		      currentTab: 0
+		    };
+		  },
+		  methods: {
+		    chooseTab(index) {
+		      this.currentTab = index;
+		    }
+		  }
+		};
+	</script>
+
+	<style>
+		* {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		}
+		.tabs__header {
+		  display: flex;
+		  justify-content: center;
+		  margin-top: 30px;
+		}
+		.tab {
+		  display: flex;
+		  justify-content: center;
+		  border: 1px solid black;
+		  width: 100px;
+		}
+
+		.tab__content {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  border: 1px solid black;
+		  width: 300px;
+		  min-height: 300px;
+		  margin: 0 auto;
+		}
+		.activeTab {
+		  background: skyblue;
+		}
+	</style>	
+-----------------------------------------
+name нужен для devtools
+-----------------------------------------
+mounted() - в нем доступно полное сгенерированное дерево html
+-----------------------------------------
+чтобы перейти на другую страницу(например после нажатия на кнопку создать):
+	this.$router.push('/название страницы')

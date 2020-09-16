@@ -1,0 +1,202 @@
+создаем комменты на Vue:
+	*Есть недоработки
+		компонент App:
+			<template>
+			  <div id="app">
+			    <h3>Leave ur comment</h3>
+			    <AddComment/>
+			    <div v-for="index in postsCount" :key="index">
+			      <Comments :index="index-1"/> // передаем данные ребенку в компонент Comments
+			    </div>
+			  </div>
+			</template>
+
+			<script>
+			import Comments from "./components/Comments.vue";
+			import AddComment from "./components/AddComment.vue";
+			import { mapGetters } from "vuex";
+			export default {
+			  name: "App",
+			  components: {
+			    Comments,
+			    AddComment
+			  },
+			  computed: {
+			    ...mapGetters(["postsCount"])
+			  }
+			};
+			</script>
+--------------------------------
+		компонент Comments:
+			<template>
+			  <div class="comments">
+			    <input
+			      type="text"
+			      class="card-text"
+			      :value="posts[index].title"
+			      ref="input"
+			      @input="changeComment"
+			      :class="{'edit' : !changed}"
+			    >
+			    <div v-if="btnVisible">
+			      <button class="btn">Save</button>
+			      <button class="btn">Cancel</button>
+			    </div>
+			    <div class="comments__card">
+			      <span>{{posts[index].author}} {{posts[index].date}}</span>
+			      <span @click="showSubComment">&times;</span>
+			    </div>
+			    <div v-if="subComment">
+			      <button @click="editComment" class="btn">Edite</button>
+			      <button @click="deleteComment" class="btn">Delete</button>
+			      <button @click="saveChangeComment" class="btn" :disabled="!btnDisabled">Save</button>
+			    </div>
+			  </div>
+			</template>
+			<script>
+			import { mapGetters, mapActions } from "vuex";
+			export default {
+			  props: ["index"],
+			  name: "Comments",
+			  data() {
+			    return {
+			      btnVisible: false,
+			      subComment: false,
+			      btnDisabled: false,
+			      newComment: "",
+			      changed: false
+			    };
+			  },
+			  computed: {
+			    ...mapGetters(["posts"])
+			  },
+			  methods: {
+			    showSubComment() {
+			      this.subComment = !this.subComment;
+			    },
+			    editComment() {
+			      //курсор падает в инпут
+			      this.$nextTick(() => this.$refs.input.focus());
+			      this.btnDisabled = true;
+			      this.changed = true;
+			    },
+			    changeComment(event) {
+			      this.newComment = event.target.value;
+			    },
+			    deleteComment() {
+			      this.deleteComment(this.index); // из стора
+			    },
+			    saveChangeComment() {
+			      if (this.newComment) {
+			        this.changeComment([this.index, this.newComment]);
+			      }
+			    },
+			    ...mapActions(["deleteComment"])
+			  }
+			};
+			</script>
+			<style scoped>
+			.edit {
+			  caret-color: transparent;
+			}
+			</style>
+-------------------------------
+		компонент AddComment:
+			<template>
+			  <div class="addcommet">
+			    <input type="text" v-model="newText" placeholder="write here" @click="onBbtnVisible">
+			    <div v-if="btnVisible">
+			      <button @click="save">Save</button>
+			      <button @click="cancel">Cancel</button>
+			    </div>
+			  </div>
+			</template>
+			<script>
+			import { mapActions } from "vuex";
+			export default {
+			  name: "AddComment",
+			  data() {
+			    return {
+			      newText: "",
+			      btnVisible: false
+			    };
+			  },
+			  methods: {
+			    onBbtnVisible() {
+			      this.btnVisible = true;
+			    },
+			    cancel() {
+			      this.newText = "";
+			      this.btnVisible = false;
+			    },
+			    save() {
+			      if (this.newText) {
+			        this.addComment(this.newText);
+			      }
+			      this.cancel();
+			    },
+			    ...mapActions(["addComment"])
+			  }
+			};
+			</script>
+
+------------------------------
+		store.js
+			import Vuex from "vuex";
+			import Vue from "vue";
+
+			Vue.use(Vuex);
+
+			export default new Vuex.Store({
+			  state: {
+			    posts: [
+			      {
+			        title: "Взят в работу",
+			        author: "John Doe",
+			        date: new Date(Date.now()).toLocaleString()
+			      },
+			      {
+			        title: "Подождать...",
+			        author: "John Doe",
+			        date: new Date(Date.now()).toLocaleString()
+			      }
+			    ]
+			  },
+			  mutations: {
+			    addComment(state, payload) {
+			      state.posts.unshift({
+			        title: payload,
+			        author: "John Doe",
+			        date: new Date(Date.now()).toLocaleString()
+			      });
+			    },
+			    deleteComment(state, payload) {
+			      state.posts.splice(payload, 1); //удаляем 1 штуку
+			    },
+			    editComment(state, [payload]) {
+			      //разобраться
+			      Vue.set(state.posts[payload[0]], "title", payload[1]);
+			    }
+			  },
+			  actions: {
+			    addComment({ commit }, payload) {
+			      commit("addComment", payload);
+			    },
+			    deleteComment({ commit }, payload) {
+			      commit("deleteComment", payload);
+			    },
+			    //разобраться
+			    editComment({ commit }, ...payload) {
+			      commit("editComment", payload);
+			    }
+			  },
+			  getters: {
+			    posts: (state) => {
+			      return state.posts;
+			    },
+			    postsCount: (state) => {
+			      return state.posts.length;
+			    }
+			  }
+			});
+			

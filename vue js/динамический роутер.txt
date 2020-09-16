@@ -1,0 +1,112 @@
+делаем динамический роутер:
+	store:
+		import Vuex from "vuex";
+		import Vue from "vue";
+
+		Vue.use(Vuex);
+
+		export default new Vuex.Store({
+		  state: {
+ 		    posts: [
+		      {
+		        title: "One",
+		        id: 1,
+		        description: "One description"
+		      },
+		      {
+		        title: "Two",
+		        id: 2,
+		        description: "Two description"
+		      },
+		      {
+		        title: "Three",
+		        id: 3,
+		        description: "Three description"
+		      }
+		    ]
+		  },
+		  mutations: {
+
+		},
+		  actions: {
+	
+        },
+		  getters: {
+		    posts: (state) => state.posts, // пеередаем массив в компоненты
+		    postById: (state) => (id) => state.posts.find((post) => post.id === id) // делаем так чтобы в нужном id открывалась нужня инфа
+		  }
+		});
+
+	компонент sidebar:
+			
+		<template>
+		  <div class="sidebar">
+		    <ul>
+		      <li v-for="(post,index) in posts" :key="index">
+		        <router-link :to="'/' + post.id">{{post.id}}</router-link> // говорим чтобы каждая ссылка открывалась в нужной странице
+		      </li>
+		    </ul>
+		  </div>
+		</template>
+		<script>
+		export default {
+		  name: "Sidbar",
+		  data() {
+		    return {
+		    };
+		  },
+		  methods: {},
+		  computed: {
+		    posts() {
+		      return this.$store.getters.posts; // получаем массив из стора
+		    }
+		  }
+		};
+		</script>
+
+	индивидуальный компонент(в моем случае SinglePage):
+		<template>
+		  <div class="single-page">
+		    <h2>Singlpage</h2>
+		    <p>{{post.description}}</p>
+		  </div>
+		</template>
+		<script>
+		export default {
+		  name: "SinglePage",
+		  data() {
+		    return {
+		    };
+		  },
+		  computed: {
+		    post() {
+		      //необходимо привести к числу
+		      return this.$store.getters.postById(+this.$route.params.id); //берем из стора
+		    }
+		  }
+		};
+		</script>
+
+	router:
+		import Vue from "vue";
+		import Router from "vue-router";
+		import SinglePage from "./components/SinglePage.vue";
+
+		Vue.use(Router);
+
+		export default new Router({
+		  mode: "history",
+		  routes: [
+		    {
+		      path: "/:id",
+		      component: SinglePage,
+		      name: "singlepage",
+		      props: true
+		    }
+		  ]
+		});
+
+
+
+
+

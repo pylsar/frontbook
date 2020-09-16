@@ -1,4 +1,4 @@
-Добавляем проект на firebase
+﻿Добавляем проект на firebase
 
 npm install firebase-tools -g 			// делается 1 раз на компе
 
@@ -16,3 +16,18 @@ File build/index.html already exists. Overwrite? (y/N) N
 firebase deploy
 
 заходим в hosting и там будет ссылка
+
+----------------------
+
+/*проект  CJ https://www.youtube.com/watch?v=UjX5ZE359ck&list=PLM_i0obccy3swdHfFh1FrLEVVFMp8-5Jc&index=7*/
+
+установка
+	npm install firebase --save
+в /src	создаем файл firebase.js
+	import firebase from 'firebase'
+
+	/* тут код с сайта var config.... */
+	export default firebase;
+
+в файле main.js 
+	import firebase from './firebase';

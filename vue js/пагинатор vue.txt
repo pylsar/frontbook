@@ -1,0 +1,116 @@
+Создаем пагинатор на Vue
+	компонент List(родитель):
+		тут рендерим список наших карточек
+		<template>
+		  <div class="list">
+		    <div v-for="(card, index) in visibleCards" :key="index" class="list__item">
+		      <h3>{{card.title}}</h3>
+		      <p>{{card.body}}</p>
+		    </div>
+		    <Pagination
+		      :cards="cards" //так как данные лежат в компоненте надо через пропсы передать их ребенку
+		      @pageUpdate="updatePage" //так как данные лежат в компоненте надо через пропсы передать их ребенку
+		      :currentPage="currentPage" //так как данные лежат в компоненте надо через пропсы передать их ребенку
+		      :pageSize="pageSize" //так как данные лежат в компоненте надо через пропсы передать их ребенку
+		    />
+		  </div>
+		</template>
+		<script>
+		import Pagination from "./Pagination.vue";
+		export default {
+		  name: "List",
+		  components: {
+		    Pagination 
+		  },
+		  data() {
+		    return {
+		      currentPage: 0, //текущая страница
+		      pageSize: 4, // количество объектов на странице
+		      visibleCards: [], // массив видимых карточек(в нашем случае = 4)
+		      cards: [
+		        {
+		          title: "title1",
+		          body: "someText1",
+		          id: 1
+		        },
+		        {
+		          title: "title2",
+		          body: "someText2",
+		          id: 2
+		        },
+		        {
+		          title: "title3",
+		          body: "someText3",
+		          id: 3
+		        },
+		        {
+		          title: "title4",
+		          body: "someText4",
+		          id: 4
+		        },
+		        {
+		          title: "title5",
+		          body: "someText5",
+		          id: 5
+		        }
+		      ]
+		    };
+		  },
+		  beforeMount: function() {
+		    this.updateVisibleCards();
+		  },
+		  methods: {
+		    updatePage(pageNumber) {
+		      this.currentPage = pageNumber;
+		      this.updateVisibleCards();
+		    },
+		    updateVisibleCards() {
+		      this.visibleCards = this.cards.slice(
+		        this.currentPage * this.pageSize,
+		        this.currentPage * this.pageSize + this.pageSize
+		      );
+		      //если нет карточек
+		      if (this.visibleCards == 0 && this.currentPage > 0) {
+		        this.updatePage(this.currentPage - 1);
+		      }
+		    }
+		  }
+		};
+		</script>
+
+	компонент Pagination(ребенок):
+		<template>
+		  <div class="pagination">
+		    <div v-if="totalPages() > 0"> //показываем пагинатор только если есть карточки
+		      <span
+		        v-if="showPreviousLink()"
+		        @click="updatePage(currentPage - 1)" // при клике переходим на пред страницу
+		      >back</span>
+		      <span class="pagination__buttons--center">{{currentPage +1}} / {{totalPages()}}</span>
+		      <span
+		        v-if="showNextLink()"
+		        @click="updatePage(currentPage + 1)"  // при клике переходим на след страницу
+		      >forward</span>
+		    </div>
+		  </div>
+		</template>
+		<script>
+		export default {
+		  name: "Pagination",
+		  props: ["cards", "currentPage", "pageSize"], //принимаем данные из родителя
+		  methods: {
+		    updatePage(pageNumber) {
+		      this.$emit("pageUpdate", pageNumber); // передаем функцию родителю
+		    },
+		    totalPages() { // всего страниц
+		      return Math.ceil(this.cards.length / this.pageSize);   //делим длину на количество в странице и ceil чтобы не было дробных значений
+		    },
+		    showPreviousLink() {
+		      return this.currentPage == 0 ? false : true; // если текущая страница равно 0 то не показываем
+		    },
+		    showNextLink() {
+		      return this.currentPage == this.totalPages() - 1 ? false : true; // если текущая страница последняя то не показываем
+		    }
+		  }
+		};
+		</script>

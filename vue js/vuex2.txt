@@ -1,0 +1,168 @@
+---------------------------VUEX------------------------------
+создаем папку vuex в src и файл store.js
+import Vue from "vue";
+import Vuex from "vuex";
+
+Vue.use(Vuex);
+
+let store = new Vuex.Store({
+  state: {}, // аналог data()
+  mutations: {}, //мутации синхронные, если вызовем 2, то вызовится только одна, а потом вторая
+  actions: {}, //асинхронные операции // тут делаются запросы axios
+  getters: {} //мутации синхронные, если вызовем 2, то вызовится только одна, а потом вторая
+});
+
+export default store;
+
+и в файле main.js 
+	import store from './vuex/store'
+
+	new Vue({
+	  render: h => h(App),
+	  store
+	}).$mount("#app");
+
+
+mapState передает данные из стора в компонент
+для этого в компоненте:
+	import { mapState } from 'vuex';
+значения пишутся в computed
+	пример:
+		store.js
+			state: {
+				title: 'Hello'
+			}
+	компонент:
+		computed: mapState(['title'])
+		<template>
+			{{title}}
+		</template>
+
+декомпозиция - разбивает стор на модули		
+-----------------------------------
+чтобы использовать state в компонентах надо в компоненте:
+	import {mapState} from 'vuex';
+	
+	computed: mapState(['tite','todos'])
+
+-------------------------------------------
+для работы с инпутом:
+	в store:
+		state:{
+			newTodo: '',
+			todos: [{
+				title: 'one',
+				done: false,
+			}]
+		}	
+		mutations: {
+			setNewTodo(state, value){   (state всегда передается, value для контроля того что пишем)
+				state.newTodo = value
+			},
+			addTodo(state){
+				state.todos.push({
+					title: state.newTodo,
+					done: false
+				})
+			},
+			setTodoDone(state, index){
+				state.todos[index].done = true;
+			},
+			setTodoNotDone(state, index){
+				state.todos[index].done = false;
+			}
+		},
+		actions:{
+			addTodo(context){
+				context.commit('addTodo')    - вызываем мутацую
+				context.commit('setNewTodo', '') - говорим чтобы поле newTodo было равно пустой строке
+			},
+			toggleTodoDone(state, index){
+
+			}
+		}
+	в компоненте:
+		<form @submit.prevent="addTodo">
+			<input  v-model="newTodo">
+		</form>	
+		<ul>
+			<input type="checkbox" :value="todo.done" @click="toggleTodoDone">
+			<li v-for="todo in todos"><span :class="{done: todo.done}">{{todo.title}}</span></li>
+		</ul>
+		
+		import {mapState, mapActions} from 'vuex';
+		computed:{
+			newTodo:{
+				get(){
+					return	this.$store.state.newTodo
+				},
+				set(value){
+					this.$store.commit('setNewTodo', value)
+				},
+			},
+			...mapState(['tite','todos'])
+		},
+		methods: mapActions(['addTodo', 'toggleTodoDone'])
+-------------------------------------------
+пример computed с mapState и функциями
+  computed: {
+    ...mapState(["lists"]),
+    sortById(a, b) {
+      return this.lists.sort((a, b) => a.id - b.id);
+    }
+  }
+
+----------------------------------------------
+getters всегда чтото возвращает( return)  
+
+----------------------------------------------
+добавляем в стор объект
+	в компоненте:
+		<form @submit.prevent="submitHandler">...</form>
+		<script>
+			export default {
+			  data() {
+			    return {
+			      description: "",
+			      title: ""
+			    };
+			  },
+			  methods: {
+			    submitHandler() {
+			      const task = {
+			        title: this.title,
+			        description: this.description,
+			        id: Date.now(),
+			        status: "active"
+			      };
+			      // console.log(task);
+			      //передаем в стор
+			      this.$store.dispatch("createTask", task);
+			      //после создания таски переходим на страницу list
+  				  this.$router.push('/list')
+			    }
+			  }
+			};
+		</script>
+	в store:
+	export default new Vuex.Store({
+	  state: {
+	  	//тут будут жить объекты
+	    tasks: []
+	    tasks: JSON.parse(localStorage.getItem("tasks") || '[]') // если используем локал сторидж  
+	  },
+	  mutations: {
+	    createTask(state, task){
+	      state.tasks.push(task)
+			// добавим в локал сторидж
+	       localStorage.setItem('tasks', JSON.stringify(state.tasks))
+	    }
+	  },
+	  actions: {
+	  	//берем из компонента далее создадим мутацию
+	    createTask({ commit }, task) {
+	      commit("createTask", task);
+	    }
+	  }
+	});
+
