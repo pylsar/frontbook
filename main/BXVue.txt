@@ -1,0 +1,366 @@
+/bitrix/php_interface/init.php
+	define('VUEJS_DEBUG', true);
+-------------------------------------------	
+
+создаем точку входа:
+\Bitrix\Main\UI\Extension::load("ui.vue"); // уточнить
+\Bitrix\Main\UI\Extension::load("partner.partnertest");
+<div id="vue-application"></div>
+
+
+создаем vue инстанс
+	local/js/partner/partnertest/ -> bitrix create
+
+	import {Type} from 'main.core';
+	import {Vue} from 'ui.vue';
+	import {BxTitle} from "../../../../modules/ui/install/js/bx-title/src/bx-title";
+
+	export class Partnertest
+	{
+		constructor(options = {name: 'Partnertest'})
+		{
+			this.name = options.name;
+		}
+
+		setName(name)
+		{
+			if (Type.isString(name))
+			{
+				this.name = name;
+			}
+		}
+
+		getName()
+		{
+			return this.name;
+		}
+	}
+
+	//Child
+	Vue.component('bx-partner', {
+		data(){
+			return {
+				isShown: false
+			}
+		},
+		components:{
+		BxTitle
+		},
+		methods:{
+			openPleas(){
+				this.isShown = !this.isShown;
+			}
+		},
+		template: `
+		<div>
+			<button @click="openPleas">partner</button>
+			<div v-if="isShown">test</div>
+		</div>
+	`
+	});
+
+
+
+	//App
+	Vue.create({
+		el: '#vue-application',
+		methods: {
+		clickBtn() {
+			alert(1);
+		}
+	},
+		template: `
+	<div>
+		<bx-partner/>
+		<bx-title @click="clickBtn"/>
+
+	</div>
+
+	`
+
+	});
+
+----------------------------------------------------------------
+создаем компонент
+	local/modules/ui/install/js/bx-title/ -> bitrix create
+
+	import {Type} from 'main.core';
+	import {Vue} from 'ui.vue';
+
+	export class BxTitle
+	{
+		constructor(options = {name: 'BxTitle'})
+		{
+			this.name = options.name;
+		}
+
+		setName(name)
+		{
+			if (Type.isString(name))
+			{
+				this.name = name;
+			}
+		}
+
+		getName()
+		{
+			return this.name;
+		}
+	}
+
+	Vue.component('bx-title',
+	{
+		data(){
+			return{
+				title: 'my title2'
+			}
+		},
+		methods: {
+			clicked() {
+				this.$emit("click");
+			}
+		},
+		template: `
+			<div @click="clicked">{{title}}</div>
+		`
+	})
+
+	config.php этого компонента
+	<?
+		if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true)
+		{
+			die();
+		}
+
+		return [
+			'css' => 'dist/bx-title.bundle.css',
+			'js' => 'dist/bx-title.bundle.js',
+			'rel' => [
+				'main.core',
+				'ui.vue',  
+			],
+			'skip_core' => false,
+		];	
+
+
+------------------------------------
+вывод свойств на экран
+  echo $arResult["DISPLAY_PROPERTIES"]['SPACE']['VALUE'].'<br>';
+  echo $arResult["DISPLAY_PROPERTIES"]['SQUARE']['VALUE'].'<br>';
+  echo $arResult["DISPLAY_PROPERTIES"]['WARM']['VALUE'];
+
+вывод значений массива на экран
+	echo '<pre>';
+ 		print_r($arResult["DISPLAY_PROPERTIES"]);
+ 	echo '</pre>';  		
+
+
+--------------------------------
+bitrix api json
+<?php
+$return = [
+    'SPACE' => 'SPACE',
+    'SQUARE' => 'SQUARE',
+    'WARM' => 'WARM',
+];
+echo json_encode($return);
+//die(); 	
+
+
+vue
+data(){
+	return{
+		info: {}
+	}
+},
+
+
+created() {
+	const requestOptions = {
+		method: "POST",
+	};
+	fetch("/local/api/news.php", requestOptions)
+		.then(response => response.json())
+		.then((data) => {
+			console.log(data);
+			this.info = data
+		});
+},
+
+template: `
+			<div class="tabs">
+				<div class="tabs__header">
+					<div
+						@click="chooseTab(index)"
+						:class="{'activeTab' : currentTab === index}"
+						v-for="(item, index) in tabsTitle"
+						:key="index"
+						class="tabs__header__item"
+					>{{item.name}}</div>
+				</div>
+				<div class="tabs__content">
+					<div v-show="currentTab === 0 " >{{ info.SPACE }}</div>
+					<div v-show="currentTab === 1 "> {{info.SQUARE}}</div>
+					<div v-show="currentTab === 2 ">{{info.WARM}}</div>
+				</div>
+				<div>{{info.WARM}}</div>
+			</div>
+		`
+
+-----------------------------------
+установка sass
+Должна быть установлена node js
+npm i -g sass	
+в phpShtorm:
+	file -> settings -> tools ->file Watchers
+	через плюсик добавляем правило SCSS
+	в аргументс добавляем --style=compressed
+	apply
+
+
+--------------------------------------------
+подключаем Vuex	 в тот же компонент
+в файл с create Vue
+	import {Vuex} from 'ui.vue.vuex';
+
+
+	const store = BX.Vuex.store(
+	{
+		state:
+			{
+				counter: 5,
+			},
+		actions:
+			{
+				increment({ commit }) {
+					commit("increment");
+				},
+				decrement({ commit }) {
+					commit("decrement");
+				},
+			},
+		mutations:
+			{
+				increment(state) {
+					state.counter++;
+				},
+				decrement(state) {
+					state.counter--;
+				},
+			}
+	});
+
+	Vue.create({
+		el: '#vue-application',
+		store: store,
+		methods: {
+			clickBtn() {
+				alert(1);
+			},
+			...Vuex.mapActions(['increment', 'decrement'])
+		},
+		computed:{
+			...Vuex.mapState(["counter"]),
+		},
+		template: `
+			<div>
+				<bx-partner/>
+				<bx-title @click="clickBtn"/>
+				<bx-tabs/>
+				{{counter}}
+				<button @click="increment">+</button>
+				<button @click="decrement">-</button>
+			</div>
+
+		`
+
+	});
+
+в php файл	
+	<?\Bitrix\Main\UI\Extension::load("ui.vue.vuex");?>	   // вроде как не надо
+
+
+
+
+----------------------------------------------------
+подключаем vuex в отдельном файле
+	local/store/store.js
+		const store = BX.Vuex.store(
+    {
+        state:
+            {
+                counter: 5,
+            },
+        actions:
+            {
+                increment({ commit }) {
+                    commit("increment");
+                },
+                decrement({ commit }) {
+                    commit("decrement");
+                },
+            },
+        mutations:
+            {
+                increment(state) {
+                    state.counter++;
+                },
+                decrement(state) {
+                    state.counter--;
+                },
+            }
+    });
+
+export default store;
+
+в компоненте:
+	import {Type} from 'main.core';
+	import {Vue} from 'ui.vue';
+	import {Vuex} from 'ui.vue.vuex';
+	import {BxTitle} from "../../../../modules/ui/install/js/bx-title/src/bx-title";
+	import {BxTabs} from "../../../../modules/ui/install/js/bx-tabs/src/bx-tabs";
+
+
+	import store from '../../../../store/store.js';
+
+
+	Vue.create({
+		el: '#vue-application',
+		store: store,
+		methods: {
+			clickBtn() {
+				alert(1);
+			},
+			...Vuex.mapActions(['increment', 'decrement'])
+		},
+		computed:{
+			...Vuex.mapState(["counter"]),
+		},
+		template: `
+			<div>
+				<bx-partner/>
+				<bx-title @click="clickBtn"/>
+				<bx-tabs/>
+				{{counter}}
+				<button @click="increment">+</button>
+				<button @click="decrement">-</button>
+			</div>
+в php файл	
+	<?\Bitrix\Main\UI\Extension::load("ui.vue.vuex");?>		// вроде как не надо	
+
+
+---------------------------------
+fetch для ie11
+npm install whatwg-fetch --save                     // ? надо ли
+	создаем файл fetch.js(копируем с github)
+	в файл с точкой входа импортим его
+	import '../../../../api/fetch.js';	
+
+
+----------------------------
+settings.scss @import относительно текущего файла scss(шторм подсказывает не правильно)
+	пример:
+		settings.scss находится в local/api/settings.scss
+		test.scss находится в local/js/partnet/partnertest/src/test.scss
+		в файле text.scss будет:
+			@import '../../../../api/settings.scss';
