@@ -1,4 +1,4 @@
-// добавляют и меняют хэш
+﻿// добавляют и меняют хэш
 <?
     use Bitrix\Main\Page\Asset;
     Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/../../src/index.js");

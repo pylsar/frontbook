@@ -1,0 +1,257 @@
+﻿дока - https://webpack.js.org
+
+index.js - главный файл в котором мы будем подключать другие скрипты
+создаем папку src
+в корне npm init
+npm install -D webpack webpack-cli - устанавливаем webpack  (пришлось установить глобально чтобы работало)
+в корне создаем файл webpack.config.js
+
+const path = require('path'); // правильный способ указывать путь
+
+module.exports = {
+	context: path.resolve(__dirname, 'src'),  // указывает где лежат наши исходники
+	mode: 'development',
+    entry: './index.js', // точка входа если у нас 1 точка входа
+/****************если 2 точки входа*********************/	
+	entry: {
+        main: './index.js',
+        analytics: './analytics.js'
+    },
+/****************/если 2 точки входа*********************/	
+    output: {
+        filename: '[name].[contenthash].js',  // name - имя файла(ищется динамически), contenthash - подставляет hash
+        path: path.resolve(__dirname, 'dist')
+    }
+}
+
+устанавливаем html-webpack plugin
+	npm install -D html-webpack-plugin
+	он нужен для того чтобы html автоматом подключал новый bundle с хэшем, но создается пустой index.html
+	в webpack.config.js:
+		const HTMLWebpackPlugin = require('html-webpack-plugin')
+		и добавляем в module.exports:
+			 plugins: [
+				new HTMLWebpackPlugin({
+					template: './index.html' // это правило добавить внутренности боди в index.html в папке dist
+				})
+			]
+	после этого нужно удалить все скрипты из нашего index.js так как сборка их добавить автоматом
+	
+устоновим clean-webpack-plugin
+	npm install -D clean-webpack-plugin
+	он нужен чтобы чистить папку dist от старых бандлов
+		const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+		plugins: [
+			new HTMLWebpackPlugin({
+				template: './src/index.html' // это правило добавить внутренности боди в index.html в папке dist
+			}),
+			new CleanWebpackPlugin()
+		]
+		
+в файле package.json
+	"scripts": {
+		"dev": "webpack --mode development", - собираем наше приложение в режиме дева
+		"build": "webpack --mode production", - в этом режиме все файлы минифицированы
+		"watch": "webpack --mode development --watch" - не выходит из режима разработки и следит за изменениями
+	
+	
+-----------------------------------
+добавляем css
+	создаем файл ./src/styles/styles.css
+	в index js подключаем стили import './styles/styles.css';
+	npm install -D style-loader css-loader
+	в webpack.config.js в module.exports 
+		    module: {
+				rules: [
+					{
+						test: /\.css$/,
+						use: ['style-loader', 'css-loader'] // последовательность важна, читает справа на лево(css-loader позволяет импортить стили, style-loader добавляет в хэд index.html стили )
+					}
+				]
+			}
+	
+---------------------
+загрузка картинок
+	npm install file-loader
+	
+		в webpack.config.js в module.exports 
+		    module: {
+				rules: [
+					{
+						test: /\.css$/,
+						use: ['style-loader', 'css-loader'] // последовательность важна, читает справа на лево(css-loader позволяет импортить стили, style-loader добавляет в хэд index.html стили )
+					},
+					{
+						test: /\.(png|jpg|svg|gif)$/,
+						use: ['file-loader']
+					},
+				]
+			}
+в js import Logo from './assets/Logo.jpg'
+в css:
+	.logo{
+		background: url('../assets/logo.jpg');
+		width: 200px;
+		height: 200px;
+		background-position: center;
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+--------------------------------
+формат Json понимается по умолчанию
+	import json from './assets/db.json';
+	console.log('JSON:', json);
+	
+-------------------------------------------
+для работы со шрифтами
+	добавляем нужные шрифты в assets/fonts
+	в папке syles добавим fonts.css
+	в styles.css @import './fonts.css';
+	в fonts.css:
+		@font-face {
+			font-family: "Open Sans";
+			src: url('../assets/fonts/OpenSans-Regular.ttf') format('truetype'); 
+		}
+	в webpack.config.js:
+		      {
+				test: /\.(ttf|woff|woff2|eot)$/,
+				use: ['file-loader']
+			  },
+	
+------------------------------------
+	для установки библиотеки из папки node modules на примере normalize.css	
+		npm install normalize.css 
+		в styles.css
+			import '~normalize.css';
+	
+-----------------------------------
+в package.json убираем main: 'index.js' и добавляем "private": true, - это защитит нас от случаной публиации
+
+------------------
+показывает какие расширения нужно понимать по умолчанию(чтобы не писать расширения в конце импортов)
+ resolve:{
+        extensions: ['.js', '.json']
+    },
+-------------------------------
+чтобы @/components (указываем абсолютный путь)
+
+  resolve:{
+        extensions: ['.js', '.json'],
+        alias: {
+            '@components': path.resolve(__dirname, 'src/components')
+        }
+    },	
+
+после этого можно подключать import file from '@components/filename'
+---------------------------
+чтобы создать вендорные файлы
+    optimization:{
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
+
+------------------------------
+создаем локальный дев сервер
+npm i -D webpack-dev-server
+
+    devServer: {
+        port: 8000
+    },
+
+
+ "start": "webpack-dev-server --mode development --open" 
+
+--------------------
+работа с css
+npm install --save-dev mini-css-extract-plugin
+	
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+в plugins добавляем 
+	new MiniCssExtractPlugin({
+            filename: '[name].[contenthash].css'
+        })
+и в module изменям 
+	 rules: [
+            {
+                test: /\.css$/i,
+                use: [
+                    {
+                      loader: MiniCssExtractPlugin.loader,
+                      options: {
+                       
+                      },
+                    },
+                    'css-loader',
+                  ],
+            },
+
+-----------------------------
+сжимаем css и js
+npm install --save-dev optimize-css-assets-webpack-plugin
+npm install terser-webpack-plugin --save-dev
+
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
+
+
+
+    optimization:{
+        splitChunks: {
+            chunks: 'all'
+        },
+        minimize: true,
+        minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    },
+
+
+--------------------------
+устанавливаем babel
+npm install -D babel-loader @babel/core @babel/preset-env
+
+module: {
+  rules: [
+    {
+      test: /\.m?js$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env']
+        }
+      }
+    }
+  ]
+}
+
+
+-------------------------
+sass
+npm i sass-loader node-sass --save-dev
+
+            {
+                test: /\.s[ac]ss$/i,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+
+-------------------------------
+добавляем vue
+	npm install -D vue-loader vue-template-compiler 
+	npm install vue
+webpack.config.js
+	const  VueLoaderPlugin  = require('vue-loader/lib/plugin');	
+
+	{
+        test: /\.vue$/,
+        loader: 'vue-loader'
+    },
+
+	resolve: {
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js'
+        },
+        extensions: ['*', '.js', '.vue', '.json']
+    },
+
+1 48
